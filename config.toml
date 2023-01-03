@@ -9,3 +9,5 @@ enableGitInfo = true
   BookToC = true
   BookSection = '*'
   BookRepo = 'https://github.com/uberblah/software-quality'
+  BookEditPath = 'edit/main'
+  BookDateFormat = '2006-01-02'
