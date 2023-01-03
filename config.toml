@@ -1,4 +1,11 @@
 # baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = 'Software Quality'
-theme = 'PaperMod'
+theme = 'hugo-book'
+
+enableGitInfo = true
+[params]
+  BookTheme = 'dark'
+  BookToC = true
+  BookSection = '*'
+  BookRepo = 'https://github.com/uberblah/software-quality'
