@@ -32,4 +32,8 @@ A personal aggregation of software engineering `{best practices, templates, patt
 3. A repository of individually-linkable library or system "archetypes" that you may see or need in the wild
 
 # Disclaimer
-All of the above is grounded in widespread industry practices, and will not reflect any personal inventions conceived in the course of my work at Amazon, Meta or any future employers. I hope to provide value here by collecting all of this information in one place, in a useful layout for sharing.
+All of the above is grounded in widespread industry challenges and practices.
+1. It will not reflect any personal inventions conceived in the course of my work
+2. It will not address challenges that are specific to any one employer or market
+
+I hope to provide value here by collecting all of this information in one place, in a useful layout for sharing.
