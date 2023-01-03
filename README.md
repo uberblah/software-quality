@@ -15,7 +15,7 @@ A personal aggregation of software engineering `{best practices, templates, patt
     - Work
     - Advice for others
 
-## Why now? What not sooner?
+## Why now? Why not sooner?
 - I've relied on existing standards so far, present in the teams or organizations that I joined
 - Now I find that there are a LOT of standards we could use. I need a "north star" to steer my team process contributions without making it "all or nothing".
 
