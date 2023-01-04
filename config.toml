@@ -11,3 +11,6 @@ enableGitInfo = true
   BookRepo = 'https://github.com/uberblah/software-quality'
   BookEditPath = 'edit/main'
   BookDateFormat = '2006-01-02'
+
+[markup.goldmark.renderer]
+      unsafe = true
