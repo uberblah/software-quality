@@ -1,4 +1,4 @@
-# baseURL = 'http://example.org/'
+baseURL = 'https://uberblah.github.io/software-quality'
 languageCode = 'en-us'
 title = 'Software Quality'
 theme = 'hugo-book'
