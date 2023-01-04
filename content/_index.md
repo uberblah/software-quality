@@ -16,6 +16,10 @@ This is a place where I dump my personal thoughts on "standards for software eng
 
 Read these for a high-level understanding of how all the standards work together to support your project or team.
 
+## Project Phases
+
+Walkthroughs for individual phases of a software project. Links to all of the relevant standards and explains why we need them.
+
 ## Standards
 
 Read these for specific recommendations. These will always link to the "why". Not all of these are applicable to all software projects.
