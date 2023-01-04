@@ -1,7 +1,7 @@
 ---
 title: "Project Lifecycle"
 date: 2023-01-03T07:14:59-08:00
-draft: true
+draft: false
 ---
 
 # Lifecycle of a Software Project
