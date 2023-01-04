@@ -13,4 +13,4 @@ enableGitInfo = true
   BookDateFormat = '2006-01-02'
 
 [markup.goldmark.renderer]
-      unsafe = true
+  unsafe = true
