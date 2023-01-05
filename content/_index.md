@@ -20,10 +20,10 @@ Walkthroughs for individual phases of a software project. Links to all of the re
 
 Read these for specific recommendations. These will always link to the "why". Not all of these are applicable to all software projects.
 
-## Principles
+## Principles (WIP)
 
 These are short statements to help you avoid pitfalls and identify opportunities. Many come with examples.
 
-## System Archetypes
+## System Archetypes (WIP)
 
 These are types of systems (and libraries!) commonly seen in the wild. Note that these will be skewed toward megacorporations and ML, since the majority of my work experience is focused on these.
