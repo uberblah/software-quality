@@ -61,6 +61,10 @@ Write a plain-language paragraph or two to explains:
 1. Who the customer is
 2. What they do and what problem they have
 3. A vision for what "solved" looks like
+
+The customer could be your business' end-customer, another business,
+a set of internal teams or even your own team.
+You can address multiple customers if needed.
 {{< /hint >}}
 
 ### Functional Requirements
