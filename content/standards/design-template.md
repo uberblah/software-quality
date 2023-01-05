@@ -183,11 +183,43 @@ when one of your alternatives is found to be preferred.
 
 ### Release Process
 
+{{< hint danger >}}
+How will you release the new functionality.
+
+An upcoming standard will provide guidance on this.
+{{< /hint >}}
+
 ### Operations
+
+{{< hint danger >}}
+How will you:
+1. Prevent and mitigate system failures or other incidents
+2. Test the system continuously to catch issues early
+3. Protect the system from breaking when new code is released
+4. Minimize the cost of maintaining the system
+
+An upcoming standard will provide guidance on this.
+{{< /hint >}}
 
 ### Security
 
+{{< hint danger >}}
+How will you prevent the system from being abused or exploited?
+
+If the system is built for security or privacy enforcement,
+the high-level of this should be covered in Proposal,
+and you can focus on finer details here.
+{{< /hint >}}
+
 ### Privacy
+
+{{< hint danger >}}
+How will you protect customer data, and ensure that it is handled in accordance with:
+1. Their expectations
+2. Applicable regulations, in the locations where the system operates
+
+An upcoming standard will provide guidance on this.
+{{< /hint >}}
 
 ### *{Component 1 Deep-Dive}*
 
