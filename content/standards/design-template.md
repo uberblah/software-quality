@@ -23,6 +23,19 @@ summary: A design doc template you can fill in to easily create a comprehensive 
 - Author: *{Author1, Author2}*
 - Status: *{Draft/Approved}*
 
+{{< hint danger >}}
+
+Pick the people who need to approve this design. You could reasonably include:
+1. Experts on the systems that need to be changed
+2. People who are planning to work on this
+3. Senior engineers
+4. Key points of contact from teams who will also work on this
+5. Product managers (tech or not), to approve on behalf of customers
+
+Reviewers are allowed to ask for more reviewers - that's why this table is here.
+
+{{< /hint >}}
+
 | Key Approver  | Representing | Status               | Notes                |
 | ------------  | ------------ | -------------------- | -------------------- |
 | *{approver1}* | *{team/org}* | *{Pending/Approved}* | *{comments go here}* |
