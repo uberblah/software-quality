@@ -45,7 +45,7 @@ Reviewers are allowed to ask for more reviewers - that's why this table is here.
 ## Requirements
 
 {{< hint danger >}}
-This section sets the "definition of done". No content is needed under this header.
+This section sets the "definition of done". See [Requirements Gathering Phase]({{< ref "project-lifecycle/requirements-gathering" >}}).
 
 It is reasonable to ensure the requirements are reviewed by some of your stakeholders
 BEFORE you write the design. This helps make sure you're designing for the right problem.
@@ -112,7 +112,7 @@ You write these down to prevent people from asking "wait, this doesn't solve X?"
 ## Proposal
 
 {{< hint danger >}}
-This section specifies at a high level our solution to the problem.
+This section specifies at a high level our solution to the problem. See [Design Phase]({{< ref "project-lifecycle/design" >}}).
 
 Avoid getting into fine details until later.
 {{< /hint >}}

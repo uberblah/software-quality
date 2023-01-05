@@ -6,6 +6,8 @@ weight: 2
 summary: Decide how we will meet all of the requirements.
 ---
 
+In this phase you will produce a [Design Document]({{< ref "standards/design-template" >}}), and get that approved. At a high level what you need to do is:
+
 1. Reference the requirements you are trying to meet
 2. Lay out the logical "components" and describe how they will work together
 3. Specify the inner function of each component

@@ -6,6 +6,8 @@ weight: 1
 summary: Decide what problem we're going to solve, and what "solved" means.
 ---
 
+In this phase you will produce the requirements portion of a [Design Document]({{< ref "standards/design-template" >}}) and get that approved. At a high level what you need to do is:
+
 1. Identify who the customers are
 2. Understand what they do, and what they need
 3. Understand how they will use the system and what they expect
