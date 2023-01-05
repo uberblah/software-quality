@@ -81,7 +81,7 @@ Functional requirements focus on "functionality we will provide". Examples:
 
 The breadth or focus of ALL requirements depends on the breadth or focus of the project.
 
-If the whole goal of the project is to improve non-functional requirements,
+If the whole goal of the project is to improve non-functional aspects of the system,
 those can be listed here and you can remove the non-functional requirements section.
 {{< /hint >}}
 
@@ -139,6 +139,9 @@ For each component, describe:
 3. High level logic behind the API
 
 You want a digestible amount of detail here. Don't go too deep.
+
+In some cases you will want a "sub-design" for some of these components.
+If so, you should mention that when you describe the component.
 {{< /hint >}}
 
 #### *{Component 1}*
