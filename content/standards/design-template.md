@@ -2,6 +2,7 @@
 title: "Design Template"
 date: 2023-01-04T21:04:48-08:00
 draft: false
+summary: A design doc template you can fill in to easily create a comprehensive design.
 ---
 
 {{< hint danger >}}
