@@ -1,6 +1,8 @@
 # software-quality
 A personal aggregation of software engineering `{best practices, templates, patterns, principles}`.
 
+# https://uberblah.github.io/software-quality/
+
 # Why?
 
 ## Why not just carry around my personal best practices in my head?
