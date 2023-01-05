@@ -1,7 +1,7 @@
 ---
 title: "Design"
 date: 2023-01-04T08:12:27-08:00
-draft: true
+draft: false
 weight: 2
 summary: Decide how we will meet all of the requirements.
 ---

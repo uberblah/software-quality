@@ -1,7 +1,7 @@
 ---
 title: "Planning"
 date: 2023-01-04T08:12:33-08:00
-draft: true
+draft: false
 weight: 3
 summary: Decide who will execute the approved plan, by when.
 ---

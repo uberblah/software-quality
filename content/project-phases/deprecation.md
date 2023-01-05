@@ -1,7 +1,7 @@
 ---
 title: "Deprecation"
 date: 2023-01-04T08:12:51-08:00
-draft: true
+draft: false
 weight: 7
 summary: Decommission or replace the system when it becomes obsolete.
 ---

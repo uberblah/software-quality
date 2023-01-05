@@ -1,7 +1,7 @@
 ---
 title: "Requirements Gathering"
 date: 2023-01-04T08:12:20-08:00
-draft: true
+draft: false
 weight: 1
 summary: Decide what problem we're going to solve, and what "solved" means.
 ---

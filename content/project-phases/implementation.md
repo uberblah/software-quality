@@ -1,7 +1,7 @@
 ---
 title: "Implementation"
 date: 2023-01-04T08:12:38-08:00
-draft: true
+draft: false
 weight: 4
 summary: Develop the proposed software.
 ---

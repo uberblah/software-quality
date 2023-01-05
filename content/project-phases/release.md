@@ -1,7 +1,7 @@
 ---
 title: "Release"
 date: 2023-01-04T08:12:44-08:00
-draft: true
+draft: false
 weight: 5
 summary: Ensure the system is ready for release and meets all applicable standards.
 ---
