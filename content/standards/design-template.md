@@ -36,11 +36,11 @@ Reviewers are allowed to ask for more reviewers - that's why this table is here.
 
 {{< /hint >}}
 
-| Key Approver  | Representing | Status               | Notes                |
-| ------------  | ------------ | -------------------- | -------------------- |
-| *{approver1}* | *{team/org}* | *{Pending/Approved}* | *{comments go here}* |
-| *{approver2}* | *{team/org}* | *{Pending/Approved}* | *{comments go here}* |
-| *{approver3}* | *{team/org}* | *{Pending/Approved}* | *{comments go here}* |
+| Key Approver  | Representing        | Status               | Notes                |
+| ------------  | ------------------- | -------------------- | -------------------- |
+| *{approver1}* | *{team/org/system}* | *{Pending/Approved}* | *{comments go here}* |
+| *{approver2}* | *{team/org/system}* | *{Pending/Approved}* | *{comments go here}* |
+| *{approver3}* | *{team/org/system}* | *{Pending/Approved}* | *{comments go here}* |
 
 ## Requirements
 
