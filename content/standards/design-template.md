@@ -160,6 +160,8 @@ confident in my proposal -- otherwise you'll have to revise these
 when one of your alternatives is found to be preferred.
 {{< /hint >}}
 
+### Release Process
+
 ### Operations
 
 ### Security
