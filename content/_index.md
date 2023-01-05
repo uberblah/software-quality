@@ -16,7 +16,7 @@ This is a place where I dump my personal thoughts on "standards for software eng
 
 Walkthroughs for individual phases of a software project. Links to all of the relevant standards and explains why we need them.
 
-## Standards
+## [Standards]({{< ref "standards" >}})
 
 Read these for specific recommendations. These will always link to the "why". Not all of these are applicable to all software projects.
 
