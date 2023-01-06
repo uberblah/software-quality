@@ -25,8 +25,8 @@ You want several stakeholders to approve a set of measurable goals.
 This means you're juggling many interests at once. Your requirements must:
 
 1. Impress a customer or Product Manager
-    1. This means a non-engineer has to understand how the new experience will be better
-    2. This means the requirements have to be simple
+    1. This means (for projects with non-tech customers) a non-engineer has to understand how the new experience will be better
+    2. This means the requirements have to be as non-technical as possible
     3. This means that a mockup may be needed to fully explain the requirements
 2. Seem like a small enough investment to Engineers and Managers to be worth the benefits
     1. This means you have to be thinking ahead to possible designs
@@ -35,7 +35,7 @@ This means you're juggling many interests at once. Your requirements must:
 
 ## Specializing the Pitch
 
-Your pitch needs to be expressed in a way your customer will understand.
+Your pitch needs to be expressed in a way your customer and key approvers will understand.
 1. Engineers
     1. These people tend to want hints about the solution before you've posed a problem
     2. Try to distract them from the solution and focus them on the problem :)
@@ -43,7 +43,7 @@ Your pitch needs to be expressed in a way your customer will understand.
     1. These people are specifically trained to help you get the right requirements
     2. Pull them into the discussion even if they aren't the customer :)
 3. End Users
-    1. These people don't understand (or maybe care) what it'll cost you to build this.
+    1. These people may not understand what it'll cost you to build this.
     2. Avoid over-promising, but see what will give them the biggest incremental boost :)
 
 ## Steps
@@ -72,7 +72,7 @@ These explain what new functionality we need to build for the customer.
 2. Must be easy for the customer to understand
 3. Should hint to engineers some "unit of functionality" to be built
 4. If building on an existing system, specify how it will affect the user's experience of that system
-5. Tempaltes:
+5. Templates:
     1. "As a {customer type}, when {activity} I can {action} in {location}, and that will result in {outcome}"
     2. "As a {customer type}, when {activity} I can see {information} in {location}"
 6. This has to be the kind of thing you (and the customer) can test when you're done, to prove that it's complete.
