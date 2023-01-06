@@ -50,7 +50,7 @@ Your pitch needs to be expressed in a way your customer will understand.
 
 1. Identify who the customers are
 2. Identify a list of "key approvers" (individual humans, not teams)
-3. Understand what they do, and what their day-to-day goals are
+3. Understand what the customers do, and what their day-to-day goals are
 4. Narrow down and focus on the "core" problem that is causing the worst effects
 5. Come up with some proposed goals which, if reached, would solve the core problem
 6. Propose and get approval on:
