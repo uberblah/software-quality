@@ -75,6 +75,7 @@ These explain what new functionality we need to build for the customer.
 5. Tempaltes:
     1. "As a {customer type}, when {activity} I can {action} in {location}, and that will result in {outcome}"
     2. "As a {customer type}, when {activity} I can see {information} in {location}"
+6. This has to be the kind of thing you (and the customer) can test when you're done, to prove that it's complete.
 
 You can mix and match the templates above. They provide some useful constraints that will guide you toward better requirements.
 
