@@ -20,7 +20,7 @@ summary: A design doc template you can fill in to easily create a comprehensive 
 
 # [Design] *{Project Name Here}*
 
-- Author: *{Author1, Author2}*
+- Author(s): *{Author1, Author2}*
 - Status: *{Draft/Approved}*
 
 {{< hint danger >}}
