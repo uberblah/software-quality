@@ -14,7 +14,7 @@ Each of the items below is a standard. A standard is either a document template 
 
 # Wish List
 
-1. Launch Checklist
+1. Launch Plan
 2. Operations Checklist
 3. Security Audit
 4. Privacy Audit
