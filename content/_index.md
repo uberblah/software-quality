@@ -20,7 +20,7 @@ Walkthroughs for individual phases of a software project. Links to all of the re
 
 Read these for specific recommendations. These will always link to the "why". Not all of these are applicable to all software projects.
 
-## Principles (WIP)
+## [Principles]({{< ref "principles" >}})
 
 These are short statements to help you avoid pitfalls and identify opportunities. Many come with examples.
 
