@@ -12,7 +12,7 @@ Separation of Concerns is the most important principle to follow when solving co
 
 ## What is it?
 
-Each component of your solution should solve a single logical sub-problem. A given sub-problem may also be divided, and sub-components created to allocate sub-problems.
+Each component of your solution should solve a single logical sub-problem. A given sub-problem may also be divided, and sub-components created to solve sub-problems.
 
 ## Why?
 
