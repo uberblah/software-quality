@@ -22,10 +22,11 @@ Each page below describes one principle you can use to guide your software engin
     7. Minimizing Dependencies
     8. Expect Change
     9. Design Incrementally
-2. Organization and Planning
-    1. Ownership
-    2. Focus
-    3. The Problem with Deprecation
+2. People and Organizations
+    1. If They Can, They Will
+    2. If It's Not Written, It's Not Happening
+    3. What Ownership Is
+    4. The Problem with Deprecation
 3. Cross Cutting Concerns
     1. Testing is Mandatory
     2. Isolating Tests
