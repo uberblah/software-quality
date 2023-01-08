@@ -50,7 +50,7 @@ This section sets the "definition of done". See [Requirements Gathering Phase]({
 It is reasonable to ensure the requirements are reviewed by some of your stakeholders
 BEFORE you write the design. This helps make sure you're designing for the right problem.
 
-You could go so far as to split this into its own separate doc, and just reference
+You could even split this into its own separate doc, and just reference
 the requirements doc when you write the design portion.
 {{< /hint >}}
 
