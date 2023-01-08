@@ -28,6 +28,7 @@ Each page below describes one principle you can use to guide your software engin
     2. If It's Not Written, It's Not Happening
     3. What Ownership Is
     4. The Problem with Deprecation
+    5. Process Automation
 3. Cross Cutting Concerns
     1. Testing is Mandatory
     2. Isolating Tests
