@@ -70,7 +70,7 @@ You can address multiple customers if needed.
 ### Functional Requirements
 
 {{< hint danger >}}
-Write a numbered bulleted list of "requirements".
+Write a numbered list of "requirements".
 These are concrete, measurable goals you can easily see if you've reached or not.
 These have to be done for the project to be considered done.
 
