@@ -12,6 +12,8 @@ In this phase you will produce the requirements portion of a [Design Document]({
 
 ## How to Think About Requirements
 
+To put yourself in the customer's shoes, here's my advice:
+
 1. ***FORGET*** everything you know about the current solution!
 2. ***DON'T*** try to come up with a new solution!
 3. ***FOCUS*** on understanding the customer, their goals and experiences!
