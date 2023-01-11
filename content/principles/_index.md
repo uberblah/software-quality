@@ -14,7 +14,8 @@ Each page below describes one principle you can use to guide your software engin
 # Wish List
 
 1. Solving Problems
-    1. The Rule of Two
+    1. Solve the Right Problem
+    2. The Rule of Two
     2. Leaf vs Root Problems
     3. Expect Change
     4. Do Not Repeat Yourself
