@@ -21,7 +21,7 @@ Given that this is the most important principle, it is also the hardest to follo
 ## Why is it Important?
 
 1. Makes it easy to figure out where you need to make a new change or debug an issue (see also "O(1) Human Effort")
-2. Makes it easy to generalize your solution to new but similar problems, by reusing pars of your design (see also "The Rule of Two")
+2. Makes it easy to generalize your solution to new but similar problems, by reusing parts of your design (see also "The Rule of Two")
 3. Minimizes the number of changes you need to make in the future (see also "Do Not Repeat Yourself")
 4. Makes it easy for different teams to own each component (see also "Ownership", "Focus" and "Minimizing Interfaces")
 5. Helps to isolate complexity so that it doesn't leak everywhere (see also "Managing Complexity" and "Clean Abstractions")
