@@ -16,6 +16,6 @@ Solving the Right Problem essentially defines "step zero" of every project. If y
 
 Understand your customer and their needs. Define the right goals BEFORE you start designing. You know you understand your customer when they are happy about the goals you've defined, and the goals are simple enough to reach.
 
-## How to Do This?
+## How to Use?
 
 Please refer to the [[Project Lifecycle]({{< ref "project-lifecycle" >}})], and note the first phase which is [[Requirements Gathering]({{< ref "project-lifecycle/requirements-gathering" >}})]. The instructions for that phase should ensure you find the right problem to solve.
