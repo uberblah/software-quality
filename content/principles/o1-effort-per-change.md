@@ -22,4 +22,4 @@ As you're designing a system or even a class structure, ask yourself -- when I w
 
 ## Related
 
-1. Issues with effort per change can arise from failure to [[Separate Concerns]({{< ref "principles/separation-of-concerns >}})]
+1. Issues with effort per change can arise from failure to [[Separate Concerns]({{< ref "principles/separation-of-concerns" >}})]
