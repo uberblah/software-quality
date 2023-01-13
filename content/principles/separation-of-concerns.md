@@ -8,7 +8,7 @@ weight: 2
 
 ## This Principle is Special
 
-Separation of Concerns is the most important principle to follow when solving complex problems. Almost all other design principles I follow are just re-wordings or specific examples of separating concerns, which is why I list this principle first.
+Separation of Concerns is the most important principle to follow when solving complex problems. Almost all other design principles I follow are just re-wordings or specific examples of separating concerns, which is why I list this principle near the top.
 
 ## What is it?
 
