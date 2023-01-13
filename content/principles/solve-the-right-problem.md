@@ -6,7 +6,7 @@ summary: Understand your customer and their needs. Define the right goals BEFORE
 weight: 1
 ---
 
-# Solve the Right Solution
+# Solve the Right Problem
 
 ## This Principle is Special
 
