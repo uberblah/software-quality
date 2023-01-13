@@ -15,15 +15,16 @@ Each page below describes one principle you can use to guide your software engin
 
 1. Solving Problems
     1. Solve the Right Problem
-    2. The Rule of Two
-    2. Leaf vs Root Problems
-    3. Expect Change
-    4. Do Not Repeat Yourself
-    5. Clean Abstractions
-    6. Minimize Interfaces
-    7. Isolate Complexity
-    8. Minimize Dependencies
-    9. Design Incrementally
+    2. O(1) Human Effort per Change
+    3. The Rule of Two
+    4. Leaf vs Root Problems
+    5. Expect Change
+    6. Do Not Repeat Yourself
+    7. Clean Abstractions
+    8. Minimize Interfaces
+    9. Isolate Complexity
+    10. Minimize Dependencies
+    11. Design Incrementally
 2. People and Organizations
     1. If They Can, They Will
     2. If It's Not Written, It's Not Happening
