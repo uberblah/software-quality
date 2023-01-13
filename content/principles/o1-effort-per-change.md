@@ -19,3 +19,7 @@ As the number of already-supported functionalities increases, your cost to make 
 ## How to Use?
 
 As you're designing a system or even a class structure, ask yourself -- when I want to add more supported cases, how will that affect the number of literal changes I need in order to make future logical changes? Where do changes need to happen when I add new support? Do those places grow with O(N), or O(1)?
+
+## Related
+
+1. Issues with effort per change can arise from failure to [[Separate Concerns]({{< ref "principles/separation-of-concerns >}})]
