@@ -6,6 +6,8 @@ summary: Understand your customer and their needs. Define the right goals BEFORE
 weight: 1
 ---
 
+# Solve the Right Solution
+
 ## This Principle is Special
 
 Solving the Right Problem essentially defines "step zero" of every project. If you haven't followed this step, you are almost certainly not solving the right problem.
