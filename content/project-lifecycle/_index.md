@@ -7,6 +7,6 @@ weight: 1
 
 # Lifecycle of a Software Project
 
-Each section below describes one phase of a software project.
+Each section below describes one phase of a software project. Note that in practice, phases can overlap significantly.
 
 {{< section >}}
