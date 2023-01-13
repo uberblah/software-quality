@@ -27,7 +27,3 @@ Given that this is the most important principle, it is also the hardest to follo
 5. Helps to isolate complexity so that it doesn't leak everywhere (see also "Managing Complexity" and "Clean Abstractions")
 6. Makes it easy to determine whether a dependency is unavoidable (see also "Minimizing Dependencies")
 7. Helps you figure out which pieces are needed right away vs later (see also "Design Incrementally")
-
-## Examples
-
-WIP
