@@ -6,7 +6,7 @@ weight: 2
 summary: Decide how we will meet all of the requirements.
 ---
 
-In this phase you will produce a [Design Document]({{< ref "standards/design-template" >}}), and get that approved. At a high level what you need to do is:
+In this phase you will produce a [[Design Document]({{< ref "standards/design-template" >}})], and get that approved. At a high level what you need to do is:
 
 ## What Does A Design Doc Do?
 
@@ -41,7 +41,7 @@ If your problem is very large, you may have multiple "sub-breakdown" stages befo
 
 ## When Am I Done?
 
-When you've filled in [this whole design doc template]({{< ref "standards/design-template" >}}) and gotten it approved by your key approvers.
+When you've filled in [[this whole design doc template]({{< ref "standards/design-template" >}})] and gotten it approved by your key approvers.
 
 NOTE: You can get informal approval in 3 phases as you build the document:
 1. Requirements, to make sure you're solving the right problem

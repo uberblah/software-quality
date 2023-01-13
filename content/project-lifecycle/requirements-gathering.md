@@ -8,7 +8,7 @@ summary: Decide what problem we're going to solve, and what "solved" means.
 
 ## Overview
 
-In this phase you will produce the requirements portion of a [Design Document]({{< ref "standards/design-template" >}}) and get that approved.
+In this phase you will produce the requirements portion of a [[Design Document]({{< ref "standards/design-template" >}})] and get that approved.
 
 ## How to Think About Requirements
 
@@ -94,4 +94,4 @@ These explain things you will not achieve. It is best for these to be worded sim
 
 ## When Am I Done?
 
-When you've filled in the Requirements section of [this design doc template]({{< ref "standards/design-template" >}}) and gotten it approved by your key approvers.
+When you've filled in the Requirements section of [[this design doc template]({{< ref "standards/design-template" >}})] and gotten it approved by your key approvers.

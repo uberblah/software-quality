@@ -2,8 +2,8 @@
 title: "Separation of Concerns"
 date: 2023-01-07T09:41:55-08:00
 draft: false
-summary: The most important principle - No component should solve multiple sub-problems, and no sub-problem should be solved by multiple components.
-weight: 1
+summary: No component should solve multiple sub-problems, and no sub-problem should be solved by multiple components.
+weight: 2
 ---
 
 ## This Principle is Special
