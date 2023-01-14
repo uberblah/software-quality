@@ -193,10 +193,11 @@ An upcoming standard will provide guidance on this.
 
 {{< hint danger >}}
 How will you:
-1. Prevent and mitigate system failures or other incidents
-2. Test the system continuously to catch issues early
-3. Protect the system from breaking when new code is released
-4. Minimize the cost of maintaining the system
+1. Debug issues and trace requests
+2. Prevent and mitigate system failures or other incidents
+3. Test the system continuously to catch issues early
+4. Protect the system from breaking when new code is released
+5. Minimize the cost of maintaining the system
 
 An upcoming standard will provide guidance on this.
 {{< /hint >}}
