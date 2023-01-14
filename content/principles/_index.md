@@ -21,8 +21,8 @@ Each page below describes one principle you can use to guide your software engin
     5. Clean Abstractions
     6. Minimize Interfaces
     7. Isolate Complexity
-    8.  Minimize Dependencies
-    9.  Design Incrementally
+    8. Minimize Dependencies
+    9. Design Incrementally
 2. People and Organizations
     1. If They Can, They Will
     2. If It's Not Written, It's Not Happening
