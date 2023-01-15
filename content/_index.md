@@ -22,7 +22,7 @@ Read these for specific recommendations. These will always link to the "why". No
 
 ## [[Principles]({{< ref "principles" >}})]
 
-These are short statements to help you avoid pitfalls and identify opportunities. Many come with examples.
+These are short statements to help you avoid pitfalls and identify opportunities. Explanations and examples will be provided over time.
 
 ## System Archetypes (WIP)
 
