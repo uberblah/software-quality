@@ -2,11 +2,11 @@
 <!-- Include mermaid only first time -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 <script>
-  mermaid.initialize({ startOnLoad: true });
+  mermaid.initialize({ startOnLoad: true, theme: "dark" });
 </script>
 {{ .Page.Scratch.Set "mermaid" true }}
 {{ end }}
 
-<div class="mermaid" style="background-color: lightgray;">
+<div class="mermaid" style="background-color: default; border-color: gray; border-width: 3px; border-style: dashed;">
     {{- .Inner | safeHTML }}
 </div>
