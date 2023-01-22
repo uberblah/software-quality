@@ -3,6 +3,7 @@ title: "Standards"
 date: 2023-01-04T08:39:21-08:00
 draft: false
 weight: 2
+bookCollapseSection: true
 ---
 
 # Standards

@@ -3,6 +3,7 @@ title: "Project Lifecycle"
 date: 2023-01-04T08:39:21-08:00
 draft: false
 weight: 1
+bookCollapseSection: true
 ---
 
 # Lifecycle of a Software Project

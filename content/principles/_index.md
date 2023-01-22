@@ -3,6 +3,7 @@ title: "Principles"
 date: 2023-01-07T09:42:10-08:00
 draft: false
 weight: 3
+bookCollapseSection: true
 ---
 
 # Software Principles
