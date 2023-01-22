@@ -26,7 +26,7 @@ summary: A design doc template you can fill in to easily create a comprehensive 
 {{< hint danger >}}
 
 Pick the people who need to approve this design. You could reasonably include:
-1. Experts on the systems that need to be changed
+1. Experts on the systems involved
 2. People who are planning to work on this
 3. Senior engineers
 4. Key points of contact from teams who will also work on this
