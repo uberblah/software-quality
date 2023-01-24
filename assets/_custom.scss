@@ -55,3 +55,17 @@ h6.nocount:before {
 * {
     font-family: 'Ubuntu';
 }
+
+div.site-footer {
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    background-color: #00000033;
+}
+
+div.site-footer ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}

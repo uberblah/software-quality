@@ -36,6 +36,6 @@ A personal aggregation of software engineering `{best practices, templates, patt
 # Disclaimer
 All of the above is grounded in widespread industry challenges and practices.
 1. It will not reflect any personal inventions conceived in the course of my work
-2. It will not address challenges that are specific to any one employer or market
+2. It will not address challenges that are specific to any current or past employer, nor any solution considered trade secrets
 
 I hope to provide value here by collecting all of this information in one place, in a useful layout for sharing.
