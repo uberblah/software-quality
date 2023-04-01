@@ -1,7 +1,7 @@
 ---
 title: "Clean Plugin Architecture"
 date: 2023-04-01T06:32:33-07:00
-draft: true
+draft: false
 summary: A structure for isolating the parts of your software and making it extensible.
 weight: 100
 ---
