@@ -36,8 +36,9 @@ The Clean Plugin Architecture provides a reusable / implementable set of compone
 that is viable in any programming language, and ensures strong isolation. It can tolerate
 cases where each piece is owned by a different developer.
 
-**There are many places where this pattern already shows up in part or whole. I did not
-invent this pattern, I am just formalizing it for your consumption**.
+**I use versions of this frequently across many kinds of systems and problems.
+There are many places where this pattern already shows up in part or whole.
+I did not invent this pattern, I am just formalizing it for your consumption**.
 
 ## Components
 
@@ -115,6 +116,14 @@ In the wild, you may know or discover that:
     We don't cover that in this doc, but maybe in a future one!
 
 ## A Concrete Example in Code
+
+{{< hint info >}}
+Keep in mind, the components will not always be in code. You can implement this pattern
+using separate microservices, WebAssembly modules or mix of component types.
+
+The important thing to understand is the dependency structure, and this provides a concrete
+example that can help illustrate how the architecture is applied.
+{{< /hint >}}
 
 ### Environment
 
