@@ -36,9 +36,11 @@ The Clean Plugin Architecture provides a reusable / implementable set of compone
 that is viable in any programming language, and ensures strong isolation. It can tolerate
 cases where each piece is owned by a different developer.
 
-**I use versions of this frequently across many kinds of systems and problems.
+{{< hint info >}}
+I use versions of this frequently across many kinds of systems and problems.
 There are many places where this pattern already shows up in part or whole.
-I did not invent this pattern, I am just formalizing it for your consumption**.
+I did not invent this pattern, I am just formalizing it for your consumption.
+{{< /hint >}}
 
 ## Components
 
