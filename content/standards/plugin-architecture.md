@@ -111,9 +111,8 @@ In the wild, you may know or discover that:
 3. Some systems such as Interface Definition Languages only provide `Interface` or
     a different, limited subset of the components above.
 4. You may have several layers of plugins (and plugins with their own plugins)
-5. It takes a lot of extra work to generalize this to the point where each component
-    is its own service or has truly independent operations. **A few exciting open
-    source projects are trying to solve this at the moment!**
+5. There is a LOT of fancy stuff you can build ontop of this, or to enhance it.
+    We don't cover that in this doc, but maybe in a future one!
 
 ## A Concrete Example in Code
 
@@ -233,8 +232,14 @@ For the code examples above, pay special attention to the `import` statements.
 
 ### Multiple Environments
 
-WIP
+Since the `Environment` is responsible for selecting a plugin to use, each `Environment`
+that wants to use the `Core Logic` can define any new plugins that are needed, as part
+of onboarding.
 
 ### Testing
 
-WIP
+There are a few benefits you can count on for testing, when you use this architecture:
+1. You can have a trivial "dummy" implementation which can be used:
+    1. To test the `Core Logic` E2E without relying on any "real" plugins
+    2. To create an E2E test that can try every plugin and expect similar outcomes
+2. No matter your language, the `Interface` can generally be mocked for unit testing
