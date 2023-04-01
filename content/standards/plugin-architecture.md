@@ -134,7 +134,7 @@ role that the `Environment` generally takes, organizing all of the other computa
 
 ```python
 from my_package.storage.plugin_one import StoragePluginNumberOne
-from my_pagkage.core import CoreLogic
+from my_package.core import CoreLogic
 
 def _prep_core_logic() -> CoreLogic:
     storage = StoragePluginNumberOne()
