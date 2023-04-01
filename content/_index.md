@@ -25,6 +25,17 @@ Read these for specific recommendations. These will always link to the "why". No
 
 These are short statements to help you avoid pitfalls and identify opportunities. Explanations and examples will be provided over time.
 
-## System Archetypes (WIP) <i class="fa-solid fa-screwdriver-wrench"></i>
+## [System Archetypes]({{< ref "system-archetypes" >}}) <i class="fa-solid fa-screwdriver-wrench"></i>
 
 These are types of systems (and libraries!) commonly seen in the wild. Note that these will be skewed toward megacorporations and ML, since the majority of my work experience is focused on these.
+
+## [Design Patterns]({{< ref "design-patterns" >}}) <i class="fa-solid fa-diagram-project"></i>
+
+These are patterns that are not specific to a certain use case, but serve as fundamental
+ways to structure software.
+
+{{< hint info >}}
+You may find that my design patterns are not as minimal as the commonly known ones.
+This is because I have specific preferences on how we should (or should not) combine them.
+You'll see a strong preference for strong isolation wherever possible.
+{{< /hint >}}
