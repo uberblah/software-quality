@@ -217,11 +217,24 @@ class StoragePluginNumberOne(StorageInterface):
         return self._data.get(k)
 ```
 
-## Dependencies
+## Considerations
+
+### Dependency Management
 
 For the code examples above, pay special attention to the `import` statements.
 1. `Core Logic` depends ONLY on `Interface`. It is completely unaware of the `Plugin`.
 2. `Plugin` depends ONLY on `Interface`. It is completely unaware of the `Core Logic`.
-3. `Environment` depends on both `Core Logic` and the `Plugin`s that it loads
-    1. It takes more work to build a system where `Environment` can depend ONLY on the
+3. `Environment` depends on both `Core Logic` and the specific `Plugin`s that it loads
+    1. The `Environment` is the root of our actual application. If it doesn't depend on
+        something, then that thing doesn't need to be packaged in our app at all! So it's
+        a good thing that we don't have to depend on plugins we're not using.
+    2. It takes more work to build a system where `Environment` can depend ONLY on the
         `Core Logic` and `Interface`. It's possible, but won't be covered here.
+
+### Multiple Environments
+
+WIP
+
+### Testing
+
+WIP
