@@ -17,10 +17,16 @@ design patterns or common / widespread types of systems in the industry.
 
 # Wish List
 
-1. Large-Scale Centralized Systems
-    1. Asset Inventory and Ownership
-    2. Authentication and Authorization
-2. Machine Learning Systems
-    1. Feature Framework
-    2. Workflow Platform
-    3. Modeling Framework
+1. Asset Inventory and Ownership
+2. Authentication and Authorization
+3. On-Call Rotation and Notification
+4. Centralized Log Aggregation
+5. Centralized Metrics and Alarms
+6. A/B Testing
+7. Business Approval Management
+8. Incident Management
+9.  Task Management
+10. Feature Framework
+11. Workflow Platform
+12. Modeling Framework
+13. Inference Platform
