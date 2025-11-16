@@ -1,59 +1,1573 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="A design doc template you can fill in to easily create a comprehensive design."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="Design Template"><meta property="og:description" content="A design doc template you can fill in to easily create a comprehensive design."><meta property="og:type" content="article"><meta property="og:url" content="https://uberblah.github.io/software-quality/standards/design-template/"><meta property="article:section" content="standards"><meta property="article:published_time" content="2023-01-04T21:04:48-08:00"><meta property="article:modified_time" content="2023-04-01T08:13:34-07:00"><title>Design Template | Software Quality</title><link rel=manifest href=/software-quality/manifest.json><link rel=icon href=/software-quality/favicon.png type=image/x-icon><link rel=stylesheet href=/software-quality/book.min.b5b46562fa7501223dc1b9abdd80daeaebd6b23c628845a8b4aeb8f600f6ce5c.css integrity="sha256-tbRlYvp1ASI9wbmr3YDa6uvWsjxiiEWotK649gD2zlw=" crossorigin=anonymous><script defer src=/software-quality/flexsearch.min.js></script>
-<script defer src=/software-quality/en.search.min.b147469cab312281812c8028d45f492ccd8385cb0b407c51fa9f957e298e3d64.js integrity="sha256-sUdGnKsxIoGBLIAo1F9JLM2DhcsLQHxR+p+VfimOPWQ=" crossorigin=anonymous></script>
-<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Ubuntu"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono"><script src=https://kit.fontawesome.com/e234cc2753.js crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/software-quality/><span>Software Quality</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><input type=checkbox id=section-e4fdd4f7ba1c1abe81549a07101b90c8 class=toggle>
-<label for=section-e4fdd4f7ba1c1abe81549a07101b90c8 class="flex justify-between"><a href=/software-quality/project-lifecycle/>Project Lifecycle</a></label><ul><li><a href=/software-quality/project-lifecycle/requirements-gathering/>Requirements Gathering</a></li><li><a href=/software-quality/project-lifecycle/design/>Design</a></li><li><a href=/software-quality/project-lifecycle/planning/>Planning</a></li><li><a href=/software-quality/project-lifecycle/implementation/>Implementation</a></li><li><a href=/software-quality/project-lifecycle/release/>Release</a></li><li><a href=/software-quality/project-lifecycle/operation/>Operation</a></li><li><a href=/software-quality/project-lifecycle/deprecation/>Deprecation</a></li></ul></li><li><input type=checkbox id=section-d029f73bf1cdfe590bb4247b295c96ae class=toggle checked>
-<label for=section-d029f73bf1cdfe590bb4247b295c96ae class="flex justify-between"><a href=/software-quality/standards/>Standards</a></label><ul><li><a href=/software-quality/standards/design-template/ class=active>Design Template</a></li></ul></li><li><input type=checkbox id=section-e798a1ea86e492b5d0ef680a37e2606c class=toggle>
-<label for=section-e798a1ea86e492b5d0ef680a37e2606c class="flex justify-between"><a href=/software-quality/principles/>Principles</a></label><ul><li><a href=/software-quality/principles/solve-the-right-problem/>Solve the Right Problem</a></li><li><a href=/software-quality/principles/separation-of-concerns/>Separate Concerns</a></li><li><a href=/software-quality/principles/o1-effort-per-change/>O(1) Effort per Change</a></li></ul></li><li><input type=checkbox id=section-73916d577cecad94e935c3f4cd821baa class=toggle>
-<label for=section-73916d577cecad94e935c3f4cd821baa class="flex justify-between"><a href=/software-quality/design-patterns/>Design Patterns</a></label><ul><li><a href=/software-quality/design-patterns/plugin-architecture/>Clean Plugin Architecture</a></li></ul></li><li><input type=checkbox id=section-7b6acd6ebfc8af55ef736086995a2ac2 class=toggle>
-<label for=section-7b6acd6ebfc8af55ef736086995a2ac2 class="flex justify-between"><a href=/software-quality/system-archetypes/>System Archetypes</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/software-quality/svg/menu.svg class=book-icon alt=Menu></label>
-<strong>Design Template</strong>
-<label for=toc-control><img src=/software-quality/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#requirements>Requirements</a><ul><li><a href=#problem-statement>Problem Statement</a></li><li><a href=#functional-requirements>Functional Requirements</a></li><li><a href=#non-functional-requirements>Non-Functional Requirements</a></li><li><a href=#out-of-scope>Out of Scope</a></li></ul></li><li><a href=#proposal>Proposal</a><ul><li><a href=#overview>Overview</a></li><li><a href=#components>Components</a></li></ul></li><li><a href=#alternatives>Alternatives</a><ul><li><a href=#why-not-x><em>{Why Not X?}</em></a></li><li><a href=#why-not-y><em>{Why Not Y?}</em></a></li></ul></li><li><a href=#detailed-notes>Detailed Notes</a><ul><li><a href=#release-process>Release Process</a></li><li><a href=#operations>Operations</a></li><li><a href=#security>Security</a></li><li><a href=#privacy>Privacy</a></li><li><a href=#component-1-deep-dive><em>{Component 1 Deep-Dive}</em></a></li></ul></li></ul></nav></aside></header><article class=markdown><blockquote class="book-hint danger"><h1 id=instructions>Instructions
-<a class=anchor href=#instructions>#</a></h1><ol><li>Replace italicized items like <em>{your name here}</em></li><li>Follow instructions in any big red banners like this one</li><li>Review the document yourself to verify you&rsquo;ve followed instructions</li><li>Delete all of the red banners and any leftover notes</li></ol></blockquote><hr><h1 id=design-project-name-here>[Design] <em>{Project Name Here}</em>
-<a class=anchor href=#design-project-name-here>#</a></h1><ul><li>Author(s): <em>{Author1, Author2}</em></li><li>Status: <em>{Draft/Approved}</em></li></ul><blockquote class="book-hint danger"><p>Pick the people who need to approve this design. You could reasonably include:</p><ol><li>Experts on the systems involved</li><li>People who are planning to work on this</li><li>Senior engineers</li><li>Key points of contact from teams who will also work on this</li><li>Product managers (tech or not), to approve on behalf of customers</li></ol><p>Reviewers are allowed to ask for more reviewers - that&rsquo;s why this table is here.</p></blockquote><table><thead><tr><th>Key Approver</th><th>Representing</th><th>Status</th><th>Notes</th></tr></thead><tbody><tr><td><em>{approver1}</em></td><td><em>{team/org/system}</em></td><td><em>{Pending/Approved}</em></td><td><em>{comments go here}</em></td></tr><tr><td><em>{approver2}</em></td><td><em>{team/org/system}</em></td><td><em>{Pending/Approved}</em></td><td><em>{comments go here}</em></td></tr><tr><td><em>{approver3}</em></td><td><em>{team/org/system}</em></td><td><em>{Pending/Approved}</em></td><td><em>{comments go here}</em></td></tr></tbody></table><h2 id=requirements>Requirements
-<a class=anchor href=#requirements>#</a></h2><blockquote class="book-hint danger"><p>This section sets the &ldquo;definition of done&rdquo;. See [<a href=https://uberblah.github.io/software-quality/project-lifecycle/requirements-gathering/>Requirements Gathering Phase</a>].</p><p>It is reasonable to ensure the requirements are reviewed by some of your stakeholders
-BEFORE you write the design. This helps make sure you&rsquo;re designing for the right problem.</p><p>You could even split this into its own separate doc, and just reference
-the requirements doc when you write the design portion.</p></blockquote><h3 id=problem-statement>Problem Statement
-<a class=anchor href=#problem-statement>#</a></h3><blockquote class="book-hint danger"><p>Write a plain-language paragraph or two to explains:</p><ol><li>Who the customer is</li><li>What they do and what problem they have</li><li>A vision for what &ldquo;solved&rdquo; looks like</li></ol><p>The customer could be your business&rsquo; end-customer, another business,
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A design doc template you can fill in to easily create a comprehensive design.">
+      
+      
+        <meta name="author" content="uberblah">
+      
+      
+        <link rel="canonical" href="https://uberblah.github.io/software-quality/standards/design-template/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../principles/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Design Template - Software Quality</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,700,700i%7CUbuntu+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Ubuntu";--md-code-font:"Ubuntu Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#instructions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Software Quality" class="md-header__button md-logo" aria-label="Software Quality" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Software Quality
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Design Template
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/uberblah/software-quality" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uberblah/software-quality
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../project-lifecycle/" class="md-tabs__link">
+          
+  
+  
+  Project Lifecycle
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Standards
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../principles/" class="md-tabs__link">
+          
+  
+  
+  Principles
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../design-patterns/" class="md-tabs__link">
+          
+  
+  
+  Design Patterns
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../system-archetypes/" class="md-tabs__link">
+          
+  
+  
+  System Archetypes
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Software Quality" class="md-nav__button md-logo" aria-label="Software Quality" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Software Quality
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/uberblah/software-quality" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uberblah/software-quality
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Lifecycle
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Lifecycle
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/requirements-gathering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements Gathering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/release/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/operation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/deprecation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deprecation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standards
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principles
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Principles
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principles/solve-the-right-problem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solve the Right Problem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principles/separation-of-concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Separate Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principles/o1-effort-per-change/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    O(1) Effort per Change
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Patterns
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/plugin-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clean Plugin Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Archetypes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Archetypes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-archetypes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Archetypes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+    <a href="https://github.com/uberblah/software-quality/edit/main/docs/standards/design-template.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<h1 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h1>
+<ol>
+<li>Replace italicized items like <em>{your name here}</em></li>
+<li>Follow instructions in any big red banners like this one</li>
+<li>Review the document yourself to verify you've followed instructions</li>
+<li>Delete all of the red banners and any leftover notes</li>
+</ol>
+</div>
+<hr />
+<h1 id="design-project-name-here">[Design] <em>{Project Name Here}</em><a class="headerlink" href="#design-project-name-here" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Author(s): <em>{Author1, Author2}</em></li>
+<li>Status: <em>{Draft/Approved}</em></li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Pick the people who need to approve this design. You could reasonably include:</p>
+<ol>
+<li>Experts on the systems involved</li>
+<li>People who are planning to work on this</li>
+<li>Senior engineers</li>
+<li>Key points of contact from teams who will also work on this</li>
+<li>Product managers (tech or not), to approve on behalf of customers</li>
+</ol>
+<p>Reviewers are allowed to ask for more reviewers - that's why this table is here.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Key Approver</th>
+<th>Representing</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>{approver1}</em></td>
+<td><em>{team/org/system}</em></td>
+<td><em>{Pending/Approved}</em></td>
+<td><em>{comments go here}</em></td>
+</tr>
+<tr>
+<td><em>{approver2}</em></td>
+<td><em>{team/org/system}</em></td>
+<td><em>{Pending/Approved}</em></td>
+<td><em>{comments go here}</em></td>
+</tr>
+<tr>
+<td><em>{approver3}</em></td>
+<td><em>{team/org/system}</em></td>
+<td><em>{Pending/Approved}</em></td>
+<td><em>{comments go here}</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>This section sets the "definition of done". See <a href="../../project-lifecycle/requirements-gathering/">Requirements Gathering Phase</a>.</p>
+<p>It is reasonable to ensure the requirements are reviewed by some of your stakeholders
+BEFORE you write the design. This helps make sure you're designing for the right problem.</p>
+<p>You could even split this into its own separate doc, and just reference
+the requirements doc when you write the design portion.</p>
+</div>
+<h3 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Write a plain-language paragraph or two to explains:</p>
+<ol>
+<li>Who the customer is</li>
+<li>What they do and what problem they have</li>
+<li>A vision for what "solved" looks like</li>
+</ol>
+<p>The customer could be your business' end-customer, another business,
 a set of internal teams or even your own team.
-You can address multiple customers if needed.</p></blockquote><h3 id=functional-requirements>Functional Requirements
-<a class=anchor href=#functional-requirements>#</a></h3><blockquote class="book-hint danger"><p>Write a numbered list of &ldquo;requirements&rdquo;.
-These are concrete, measurable goals you can easily see if you&rsquo;ve reached or not.
-These have to be done for the project to be considered done.</p><p>Functional requirements focus on &ldquo;functionality we will provide&rdquo;. Examples:</p><ol><li>The customer can click on the &ldquo;hello&rdquo; button to receive a &ldquo;hello&rdquo; email</li><li>All filed customer complaints will be stored permanently</li><li>I can send an emoji with a format like <code>:happyface:</code></li></ol><p>The breadth or focus of ALL requirements depends on the breadth or focus of the project.</p><p>If the whole goal of the project is to improve non-functional aspects of the system,
-those can be listed here and you can remove the non-functional requirements section.</p></blockquote><h3 id=non-functional-requirements>Non-Functional Requirements
-<a class=anchor href=#non-functional-requirements>#</a></h3><blockquote class="book-hint danger"><p>Write a numbered bulleted list of &ldquo;requirements&rdquo;.
-These are concrete, measurable goals you can easily see if you&rsquo;ve reached or not.
-These have to be done for the project to be considered done.</p><p>Non-functional requirements focus on &ldquo;how we will provide our functionality&rdquo;. Examples:</p><ol><li>The &ldquo;create&rdquo; operation will meet a latency SLA of 5ms @ P95</li><li>The &ldquo;create&rdquo; operation will handle 90 QPS without performance degradation</li><li>No engineer effort should be required for a customer to file a complaint</li><li>This project will meet all operations, security and privacy standards of our org</li></ol><p>The breadth or focus of ALL requirements depends on the breadth or focus of the project.</p></blockquote><h3 id=out-of-scope>Out of Scope
-<a class=anchor href=#out-of-scope>#</a></h3><blockquote class="book-hint danger">Write a numbered bulleted list of &ldquo;NON-requirements&rdquo;.
+You can address multiple customers if needed.</p>
+</div>
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Write a numbered list of "requirements".
+These are concrete, measurable goals you can easily see if you've reached or not.
+These have to be done for the project to be considered done.</p>
+<p>Functional requirements focus on "functionality we will provide". Examples:</p>
+<ol>
+<li>The customer can click on the "hello" button to receive a "hello" email</li>
+<li>All filed customer complaints will be stored permanently</li>
+<li>I can send an emoji with a format like <code>:happyface:</code></li>
+</ol>
+<p>The breadth or focus of ALL requirements depends on the breadth or focus of the project.</p>
+<p>If the whole goal of the project is to improve non-functional aspects of the system,
+those can be listed here and you can remove the non-functional requirements section.</p>
+</div>
+<h3 id="non-functional-requirements">Non-Functional Requirements<a class="headerlink" href="#non-functional-requirements" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Write a numbered bulleted list of "requirements".
+These are concrete, measurable goals you can easily see if you've reached or not.
+These have to be done for the project to be considered done.</p>
+<p>Non-functional requirements focus on "how we will provide our functionality". Examples:</p>
+<ol>
+<li>The "create" operation will meet a latency SLA of 5ms @ P95</li>
+<li>The "create" operation will handle 90 QPS without performance degradation</li>
+<li>No engineer effort should be required for a customer to file a complaint</li>
+<li>This project will meet all operations, security and privacy standards of our org</li>
+</ol>
+<p>The breadth or focus of ALL requirements depends on the breadth or focus of the project.</p>
+</div>
+<h3 id="out-of-scope">Out of Scope<a class="headerlink" href="#out-of-scope" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Write a numbered bulleted list of "NON-requirements".
 These are things this project will NOT achieve.
-You write these down to prevent people from asking &ldquo;wait, this doesn&rsquo;t solve X?&rdquo;</blockquote><h2 id=proposal>Proposal
-<a class=anchor href=#proposal>#</a></h2><blockquote class="book-hint danger"><p>This section specifies at a high level our solution to the problem. See [<a href=https://uberblah.github.io/software-quality/project-lifecycle/design/>Design Phase</a>].</p><p>Avoid getting into fine details until later.</p></blockquote><h3 id=overview>Overview
-<a class=anchor href=#overview>#</a></h3><blockquote class="book-hint danger"><p>Provide a diagram that shows the components of your system,
-as well as any neighboring systems it interacts with.</p><p>Color scheme should be used to show:</p><ol><li>Which components need changes</li><li>Which components are new</li><li>Which components will be deprecated</li><li>Which components will be unaffected (&ldquo;out of scope&rdquo;)</li></ol></blockquote><h3 id=components>Components
-<a class=anchor href=#components>#</a></h3><blockquote class="book-hint danger"><p>For each component, describe:</p><ol><li>Summary of its purpose, how it works and how it interacts with other components</li><li>Its API &ndash; inputs, outputs, side-effects</li><li>High level logic behind the API</li></ol><p>You want a digestible amount of detail here. Don&rsquo;t go too deep.</p><p>In some cases you will want a &ldquo;sub-design&rdquo; for some of these components.
-If so, you should mention that when you describe the component.</p></blockquote><h4 id=component-1><em>{Component 1}</em>
-<a class=anchor href=#component-1>#</a></h4><h4 id=component-2><em>{Component 2}</em>
-<a class=anchor href=#component-2>#</a></h4><h4 id=component-3><em>{Component 3}</em>
-<a class=anchor href=#component-3>#</a></h4><h2 id=alternatives>Alternatives
-<a class=anchor href=#alternatives>#</a></h2><blockquote class="book-hint danger"><p>Explain what alternative approaches you considered.</p><p>If there were multiple choices on a certain component,
+You write these down to prevent people from asking "wait, this doesn't solve X?"</p>
+</div>
+<h2 id="proposal">Proposal<a class="headerlink" href="#proposal" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>This section specifies at a high level our solution to the problem. See <a href="../../project-lifecycle/design/">Design Phase</a>.</p>
+<p>Avoid getting into fine details until later.</p>
+</div>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Provide a diagram that shows the components of your system,
+as well as any neighboring systems it interacts with.</p>
+<p>Color scheme should be used to show:</p>
+<ol>
+<li>Which components need changes</li>
+<li>Which components are new</li>
+<li>Which components will be deprecated</li>
+<li>Which components will be unaffected ("out of scope")</li>
+</ol>
+</div>
+<h3 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>For each component, describe:</p>
+<ol>
+<li>Summary of its purpose, how it works and how it interacts with other components</li>
+<li>Its API -- inputs, outputs, side-effects</li>
+<li>High level logic behind the API</li>
+</ol>
+<p>You want a digestible amount of detail here. Don't go too deep.</p>
+<p>In some cases you will want a "sub-design" for some of these components.
+If so, you should mention that when you describe the component.</p>
+</div>
+<h4 id="component-1"><em>{Component 1}</em><a class="headerlink" href="#component-1" title="Permanent link">&para;</a></h4>
+<h4 id="component-2"><em>{Component 2}</em><a class="headerlink" href="#component-2" title="Permanent link">&para;</a></h4>
+<h4 id="component-3"><em>{Component 3}</em><a class="headerlink" href="#component-3" title="Permanent link">&para;</a></h4>
+<h2 id="alternatives">Alternatives<a class="headerlink" href="#alternatives" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Explain what alternative approaches you considered.</p>
+<p>If there were multiple choices on a certain component,
 you could make one section explaining those choices,
-and the tradeoffs that led you to your decision.</p><p>This is where you really show your work, and the thought
-process you followed.</p></blockquote><h3 id=why-not-x><em>{Why Not X?}</em>
-<a class=anchor href=#why-not-x>#</a></h3><h3 id=why-not-y><em>{Why Not Y?}</em>
-<a class=anchor href=#why-not-y>#</a></h3><h2 id=detailed-notes>Detailed Notes
-<a class=anchor href=#detailed-notes>#</a></h2><blockquote class="book-hint danger"><p>This section makes an inventory of applicable standards,
-and explains how we will meet all of them with the proposed design.</p><p>Note that there might be finer details here that were not covered
-in the proposal section.</p><p>I often hold off on writing all of the detailed notes until I&rsquo;m
-confident in my proposal &ndash; otherwise you&rsquo;ll have to revise these
-when one of your alternatives is found to be preferred.</p></blockquote><h3 id=release-process>Release Process
-<a class=anchor href=#release-process>#</a></h3><blockquote class="book-hint danger"><p>How will you release the new functionality.</p><p>An upcoming standard will provide guidance on this.</p></blockquote><h3 id=operations>Operations
-<a class=anchor href=#operations>#</a></h3><blockquote class="book-hint danger"><p>How will you:</p><ol><li>Debug issues and trace requests</li><li>Prevent and mitigate system failures or other incidents</li><li>Test the system continuously to catch issues early</li><li>Protect the system from breaking when new code is released</li><li>Minimize the cost of maintaining the system</li></ol><p>An upcoming standard will provide guidance on this.</p></blockquote><h3 id=security>Security
-<a class=anchor href=#security>#</a></h3><blockquote class="book-hint danger"><p>How will you prevent the system from being abused or exploited?</p><p>If the system is built for security or privacy enforcement,
+and the tradeoffs that led you to your decision.</p>
+<p>This is where you really show your work, and the thought
+process you followed.</p>
+</div>
+<h3 id="why-not-x"><em>{Why Not X?}</em><a class="headerlink" href="#why-not-x" title="Permanent link">&para;</a></h3>
+<h3 id="why-not-y"><em>{Why Not Y?}</em><a class="headerlink" href="#why-not-y" title="Permanent link">&para;</a></h3>
+<h2 id="detailed-notes">Detailed Notes<a class="headerlink" href="#detailed-notes" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>This section makes an inventory of applicable standards,
+and explains how we will meet all of them with the proposed design.</p>
+<p>Note that there might be finer details here that were not covered
+in the proposal section.</p>
+<p>I often hold off on writing all of the detailed notes until I'm
+confident in my proposal -- otherwise you'll have to revise these
+when one of your alternatives is found to be preferred.</p>
+</div>
+<h3 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>How will you release the new functionality.</p>
+<p>An upcoming standard will provide guidance on this.</p>
+</div>
+<h3 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>How will you:</p>
+<ol>
+<li>Debug issues and trace requests</li>
+<li>Prevent and mitigate system failures or other incidents</li>
+<li>Test the system continuously to catch issues early</li>
+<li>Protect the system from breaking when new code is released</li>
+<li>Minimize the cost of maintaining the system</li>
+</ol>
+<p>An upcoming standard will provide guidance on this.</p>
+</div>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>How will you prevent the system from being abused or exploited?</p>
+<p>If the system is built for security or privacy enforcement,
 the high-level of this should be covered in Proposal,
-and you can focus on finer details here.</p></blockquote><h3 id=privacy>Privacy
-<a class=anchor href=#privacy>#</a></h3><blockquote class="book-hint danger"><p>How will you protect customer data, and ensure that it is handled in accordance with:</p><ol><li>Their expectations</li><li>Applicable regulations, in the locations where the system operates</li></ol><p>An upcoming standard will provide guidance on this.</p></blockquote><h3 id=component-1-deep-dive><em>{Component 1 Deep-Dive}</em>
-<a class=anchor href=#component-1-deep-dive>#</a></h3><blockquote class="book-hint danger">Not all components need a full deep-dive, but it can be helpful
-in case you don&rsquo;t want to create a whole new design doc just for
-that component / there isn&rsquo;t quite enough ambiguity for that.</blockquote></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/uberblah/software-quality/commit/ef7f8d540eb90d8c2f02cffb0b52b6c6afe3de53 title='Last modified by uberblah | 2023-04-01' target=_blank rel=noopener><img src=/software-quality/svg/calendar.svg class=book-icon alt=Calendar>
-<span>2023-04-01</span></a></div><div><a class="flex align-center" href=https://github.com/uberblah/software-quality/edit/main/content/standards/design-template.md target=_blank rel=noopener><img src=/software-quality/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this page</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script><footer><br><div class=site-footer><ul><li>Views expressed are those of the author and not any current or past employer.</li><li>This site presents general industry practices, not trade secrets or inventions.</li><li>I am not a lawyer. Technical notes on Privacy and Security are not legal advice.</li></ul></div></footer></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#requirements>Requirements</a><ul><li><a href=#problem-statement>Problem Statement</a></li><li><a href=#functional-requirements>Functional Requirements</a></li><li><a href=#non-functional-requirements>Non-Functional Requirements</a></li><li><a href=#out-of-scope>Out of Scope</a></li></ul></li><li><a href=#proposal>Proposal</a><ul><li><a href=#overview>Overview</a></li><li><a href=#components>Components</a></li></ul></li><li><a href=#alternatives>Alternatives</a><ul><li><a href=#why-not-x><em>{Why Not X?}</em></a></li><li><a href=#why-not-y><em>{Why Not Y?}</em></a></li></ul></li><li><a href=#detailed-notes>Detailed Notes</a><ul><li><a href=#release-process>Release Process</a></li><li><a href=#operations>Operations</a></li><li><a href=#security>Security</a></li><li><a href=#privacy>Privacy</a></li><li><a href=#component-1-deep-dive><em>{Component 1 Deep-Dive}</em></a></li></ul></li></ul></nav></div></aside></main></body></html>
+and you can focus on finer details here.</p>
+</div>
+<h3 id="privacy">Privacy<a class="headerlink" href="#privacy" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>How will you protect customer data, and ensure that it is handled in accordance with:</p>
+<ol>
+<li>Their expectations</li>
+<li>Applicable regulations, in the locations where the system operates</li>
+</ol>
+<p>An upcoming standard will provide guidance on this.</p>
+</div>
+<h3 id="component-1-deep-dive"><em>{Component 1 Deep-Dive}</em><a class="headerlink" href="#component-1-deep-dive" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Not all components need a full deep-dive, but it can be helpful
+in case you don't want to create a whole new design doc just for
+that component / there isn't quite enough ambiguity for that.</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+  <div class="site-footer">
+    <ul>
+      <li>
+        Views expressed are those of the author and not any current or past employer.
+      </li>
+      <li>
+        This site presents general industry practices, not trade secrets or inventions.
+      </li>
+      <li>
+        I am not a lawyer. Technical notes on Privacy and Security are not legal advice.
+      </li>
+    </ul>
+  </div>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/uberblah/software-quality" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

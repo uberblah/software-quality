@@ -1,145 +1,1876 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="A structure for isolating the parts of your software and making it extensible."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="Clean Plugin Architecture"><meta property="og:description" content="A structure for isolating the parts of your software and making it extensible."><meta property="og:type" content="article"><meta property="og:url" content="https://uberblah.github.io/software-quality/design-patterns/plugin-architecture/"><meta property="article:section" content="design-patterns"><meta property="article:published_time" content="2023-04-01T06:32:33-07:00"><meta property="article:modified_time" content="2023-04-01T16:41:24-07:00"><title>Clean Plugin Architecture | Software Quality</title><link rel=manifest href=/software-quality/manifest.json><link rel=icon href=/software-quality/favicon.png type=image/x-icon><link rel=stylesheet href=/software-quality/book.min.b5b46562fa7501223dc1b9abdd80daeaebd6b23c628845a8b4aeb8f600f6ce5c.css integrity="sha256-tbRlYvp1ASI9wbmr3YDa6uvWsjxiiEWotK649gD2zlw=" crossorigin=anonymous><script defer src=/software-quality/flexsearch.min.js></script>
-<script defer src=/software-quality/en.search.min.b147469cab312281812c8028d45f492ccd8385cb0b407c51fa9f957e298e3d64.js integrity="sha256-sUdGnKsxIoGBLIAo1F9JLM2DhcsLQHxR+p+VfimOPWQ=" crossorigin=anonymous></script>
-<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Ubuntu"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono"><script src=https://kit.fontawesome.com/e234cc2753.js crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/software-quality/><span>Software Quality</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><input type=checkbox id=section-e4fdd4f7ba1c1abe81549a07101b90c8 class=toggle>
-<label for=section-e4fdd4f7ba1c1abe81549a07101b90c8 class="flex justify-between"><a href=/software-quality/project-lifecycle/>Project Lifecycle</a></label><ul><li><a href=/software-quality/project-lifecycle/requirements-gathering/>Requirements Gathering</a></li><li><a href=/software-quality/project-lifecycle/design/>Design</a></li><li><a href=/software-quality/project-lifecycle/planning/>Planning</a></li><li><a href=/software-quality/project-lifecycle/implementation/>Implementation</a></li><li><a href=/software-quality/project-lifecycle/release/>Release</a></li><li><a href=/software-quality/project-lifecycle/operation/>Operation</a></li><li><a href=/software-quality/project-lifecycle/deprecation/>Deprecation</a></li></ul></li><li><input type=checkbox id=section-d029f73bf1cdfe590bb4247b295c96ae class=toggle>
-<label for=section-d029f73bf1cdfe590bb4247b295c96ae class="flex justify-between"><a href=/software-quality/standards/>Standards</a></label><ul><li><a href=/software-quality/standards/design-template/>Design Template</a></li></ul></li><li><input type=checkbox id=section-e798a1ea86e492b5d0ef680a37e2606c class=toggle>
-<label for=section-e798a1ea86e492b5d0ef680a37e2606c class="flex justify-between"><a href=/software-quality/principles/>Principles</a></label><ul><li><a href=/software-quality/principles/solve-the-right-problem/>Solve the Right Problem</a></li><li><a href=/software-quality/principles/separation-of-concerns/>Separate Concerns</a></li><li><a href=/software-quality/principles/o1-effort-per-change/>O(1) Effort per Change</a></li></ul></li><li><input type=checkbox id=section-73916d577cecad94e935c3f4cd821baa class=toggle checked>
-<label for=section-73916d577cecad94e935c3f4cd821baa class="flex justify-between"><a href=/software-quality/design-patterns/>Design Patterns</a></label><ul><li><a href=/software-quality/design-patterns/plugin-architecture/ class=active>Clean Plugin Architecture</a></li></ul></li><li><input type=checkbox id=section-7b6acd6ebfc8af55ef736086995a2ac2 class=toggle>
-<label for=section-7b6acd6ebfc8af55ef736086995a2ac2 class="flex justify-between"><a href=/software-quality/system-archetypes/>System Archetypes</a></label><ul></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/software-quality/svg/menu.svg class=book-icon alt=Menu></label>
-<strong>Clean Plugin Architecture</strong>
-<label for=toc-control><img src=/software-quality/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#why>Why?</a></li><li><a href=#components>Components</a></li><li><a href=#a-concrete-example-in-code>A Concrete Example in Code</a><ul><li><a href=#environment>Environment</a></li><li><a href=#core-logic>Core Logic</a></li><li><a href=#interface>Interface</a></li><li><a href=#plugin>Plugin</a></li></ul></li><li><a href=#considerations>Considerations</a><ul><li><a href=#dependency-management>Dependency Management</a></li><li><a href=#multiple-environments>Multiple Environments</a></li><li><a href=#testing>Testing</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=the-clean-plugin-architecture>The Clean Plugin Architecture
-<a class=anchor href=#the-clean-plugin-architecture>#</a></h1><h2 id=why>Why?
-<a class=anchor href=#why>#</a></h2><p>When building software, it&rsquo;s critical to identify the portions of the software that
-may evolve independently or change direction in the future. Classic examples include:</p><ol><li>You may change your backing storage</li><li>You may change the way you log things</li><li>You may want to relocate part of your logic to its own service later</li><li>You may want to redistribute chunks of your service logic in a CLI</li><li>Your service may want to integrate with many similar customer systems</li><li>You may want to allow customers to extend your service with custom logic</li></ol><p>We want to make it so that none of your system needs to be rewritten or copied for each
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A structure for isolating the parts of your software and making it extensible.">
+      
+      
+        <meta name="author" content="uberblah">
+      
+      
+        <link rel="canonical" href="https://uberblah.github.io/software-quality/design-patterns/plugin-architecture/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../system-archetypes/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Clean Plugin Architecture - Software Quality</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,700,700i%7CUbuntu+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Ubuntu";--md-code-font:"Ubuntu Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-clean-plugin-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Software Quality" class="md-header__button md-logo" aria-label="Software Quality" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Software Quality
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Clean Plugin Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/uberblah/software-quality" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uberblah/software-quality
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../project-lifecycle/" class="md-tabs__link">
+          
+  
+  
+  Project Lifecycle
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../standards/" class="md-tabs__link">
+          
+  
+  
+  Standards
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../principles/" class="md-tabs__link">
+          
+  
+  
+  Principles
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Design Patterns
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../system-archetypes/" class="md-tabs__link">
+          
+  
+  
+  System Archetypes
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Software Quality" class="md-nav__button md-logo" aria-label="Software Quality" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Software Quality
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/uberblah/software-quality" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    uberblah/software-quality
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Lifecycle
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Lifecycle
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/requirements-gathering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements Gathering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/release/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/operation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-lifecycle/deprecation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deprecation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standards
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/design-template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principles
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Principles
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principles/solve-the-right-problem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solve the Right Problem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principles/separation-of-concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Separate Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principles/o1-effort-per-change/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    O(1) Effort per Change
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Patterns
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clean Plugin Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clean Plugin Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-concrete-example-in-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Concrete Example in Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Concrete Example in Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependency-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Archetypes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Archetypes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-archetypes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Archetypes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-concrete-example-in-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Concrete Example in Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Concrete Example in Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependency-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+    <a href="https://github.com/uberblah/software-quality/edit/main/docs/design-patterns/plugin-architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="the-clean-plugin-architecture">The Clean Plugin Architecture<a class="headerlink" href="#the-clean-plugin-architecture" title="Permanent link">&para;</a></h1>
+<h2 id="why">Why?<a class="headerlink" href="#why" title="Permanent link">&para;</a></h2>
+<p>When building software, it's critical to identify the portions of the software that
+may evolve independently or change direction in the future. Classic examples include:
+1. You may change your backing storage
+2. You may change the way you log things
+3. You may want to relocate part of your logic to its own service later
+4. You may want to redistribute chunks of your service logic in a CLI
+5. Your service may want to integrate with many similar customer systems
+6. You may want to allow customers to extend your service with custom logic</p>
+<p>We want to make it so that none of your system needs to be rewritten or copied for each
 new scenario. Each time you add a new scenario, you should only have to write some new
-code to directly support it. None of your core logic should change.</p><p>You&rsquo;ll actually need multiple components in order to separate those pieces cleanly:</p><ol><li>Defining the non-changing, reusable core logic (<code>Core Logic</code>)</li><li>Defining what your core logic requires from each plugin or module (<code>Interface</code>)</li><li>Defining the plugins and modules themselves (<code>Plugin</code>)</li><li>Connecting the plugins and actually running your core logic on them (<code>Environment</code>)</li></ol><p>All of the concerns above are things you may want to evolve independently over time,
-so each should get their own component in this design.</p><p>The Clean Plugin Architecture provides a reusable / implementable set of components
+code to directly support it. None of your core logic should change.</p>
+<p>You'll actually need multiple components in order to separate those pieces cleanly:
+1. Defining the non-changing, reusable core logic (<code>Core Logic</code>)
+2. Defining what your core logic requires from each plugin or module (<code>Interface</code>)
+3. Defining the plugins and modules themselves (<code>Plugin</code>)
+4. Connecting the plugins and actually running your core logic on them (<code>Environment</code>)</p>
+<p>All of the concerns above are things you may want to evolve independently over time,
+so each should get their own component in this design.</p>
+<p>The Clean Plugin Architecture provides a reusable / implementable set of components
 that is viable in any programming language, and ensures strong isolation. It can tolerate
-cases where each piece is owned by a different developer.</p><blockquote class="book-hint info">I use versions of this frequently across many kinds of systems and problems.
+cases where each piece is owned by a different developer.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>I use versions of this frequently across many kinds of systems and problems.
 There are many places where this pattern already shows up in part or whole.
-I did not invent this pattern, I am just formalizing it for your consumption.</blockquote><h2 id=components>Components
-<a class=anchor href=#components>#</a></h2><ol><li>The <code>Environment</code> is what executes the whole system. It knows how to:<ol><li>Initialize the core logic</li><li>Find and initialize plugins</li><li>Plug them into the core logic</li><li>Run the core logic</li></ol></li><li>The <code>Core Logic</code> is the reusable logic that will rely on our plugins</li><li>The <code>Interface</code> is an interface or specification of what the plugins need to support</li><li>The <code>Plugin</code> is one module that supports all the needed operations. It can be plugged
-in, potentially alongside other plugins for the core logic to use.</li></ol><script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script>
-<script>mermaid.initialize({startOnLoad:!0,theme:"dark"})</script><div class=mermaid style=background-color:default;border-color:gray;border-width:3px;border-style:dashed>flowchart TD
-subgraph env[Environment]
-prepare([prepare plugins])
-provide([provide plugins])
-launch([launch])
-end
-subgraph core[Core Logic]
-sac([setup / init])
-sa1([action 1])
-sa2([action 2])
-end
-subgraph interface[Interface]
-o1((op1))
-o2((op2))
-o3((op3))
-end
-subgraph plugin1[Plugin]
-p1c([setup / init])
-p1o1((op1))
-p1o2((op2))
-p1o3((op3))
-end
-sa1 --> o1
-sa2 --> o2
-sa2 --> o3
-o1 -.-> p1o1
-o2 -.-> p1o2
-o3 -.-> p1o3
-prepare --> p1c
-provide --> sac
-launch --> sa1
-sa1 --> sa2</div><p>With this architecture, you can easily add new <code>Plugin</code>s and get them working quickly
-without changing your <code>Core Logic</code>, which is the goal we wanted to achieve!</p><p>Keep in mind that this diagram is not canonical. Some things that may differ:</p><ol><li>The <code>Environment</code> may provide <code>Plugins</code> as arguments to the <code>Core Logic</code>&rsquo;s actual
-methods, rather than providing them at setup</li><li>The <code>Core Logic</code> could just be some hard-coded functions with no setup process</li><li>The <code>Core Logic</code> may have several separately-triggered actions available</li><li>The <code>Core Logic</code> may be invoked by someone other than the <code>Environment</code>, e.g.
-if the <code>Core Logic</code> is actually a service launched by the <code>Environment</code></li><li>The <code>Interface</code> may actually define its own initialization method and be initialized
-directly by the core logic (after some other loading process to get access to it)</li><li>The <code>Plugins</code> may be initialized and passed to the environment a different way</li></ol><p>In the wild, you may know or discover that:</p><ol><li>All of these components may have different names</li><li>The most common reusable tool for this is a Dependency Injection Framework</li><li>Some systems such as Interface Definition Languages only provide <code>Interface</code> or
-a different, limited subset of the components above.</li><li>You may have several layers of plugins (and plugins with their own plugins)</li><li>There is a LOT of fancy stuff you can build ontop of this, or to enhance it.
-We don&rsquo;t cover that in this doc, but maybe in a future one!</li></ol><h2 id=a-concrete-example-in-code>A Concrete Example in Code
-<a class=anchor href=#a-concrete-example-in-code>#</a></h2><blockquote class="book-hint info"><p>Keep in mind, the components will not always be in code. You can implement this pattern
-using separate microservices, WebAssembly modules or mix of component types.</p><p>The important thing to understand is the dependency structure, and this provides a concrete
-example that can help illustrate how the architecture is applied.</p></blockquote><h3 id=environment>Environment
-<a class=anchor href=#environment>#</a></h3><p>For this example I express the <code>Environment</code> as a <code>main</code> method. This is essentially the
-role that the <code>Environment</code> generally takes, organizing all of the other computation.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> my_package.storage.plugin_one <span style=color:#f92672>import</span> StoragePluginNumberOne
-</span></span><span style=display:flex><span><span style=color:#f92672>from</span> my_package.core <span style=color:#f92672>import</span> CoreLogic
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_prep_core_logic</span>() <span style=color:#f92672>-&gt;</span> CoreLogic:
-</span></span><span style=display:flex><span>    storage <span style=color:#f92672>=</span> StoragePluginNumberOne()
-</span></span><span style=display:flex><span>    core <span style=color:#f92672>=</span> CoreLogic(storage<span style=color:#f92672>=</span>storage)
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> core
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>main</span>():
-</span></span><span style=display:flex><span>    <span style=color:#75715e># this environment is just for running a simple test</span>
-</span></span><span style=display:flex><span>    core <span style=color:#f92672>=</span> _prep_core_logic()
-</span></span><span style=display:flex><span>    print(core<span style=color:#f92672>.</span>foo(<span style=color:#ae81ff>5</span>))
-</span></span><span style=display:flex><span>    print(core<span style=color:#f92672>.</span>bar(<span style=color:#ae81ff>10</span>))
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
-</span></span><span style=display:flex><span>    main()
-</span></span></code></pre></div><h3 id=core-logic>Core Logic
-<a class=anchor href=#core-logic>#</a></h3><p>This is the concrete class or set of functions that use our pluggable components. There should be only one logic that is applied to any plugins that are prepared. We should have a mechanism to receive at runtime the specific plugin implementations that will be used.</p><p>In the code below, pay attention to the use of <code>StorageInterface</code> and <code>_storage</code>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> logging
-</span></span><span style=display:flex><span><span style=color:#f92672>from</span> my_package.storage.interface <span style=color:#f92672>import</span> StorageInterface
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>log <span style=color:#f92672>=</span> logging<span style=color:#f92672>.</span>getLogger(__name__)
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>CoreLogic</span>:
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, storage: StorageInterface) <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>None</span>:
-</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_storage <span style=color:#f92672>=</span> storage
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>foo</span>(self, baz: int) <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>None</span>:
-</span></span><span style=display:flex><span>        result <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>_storage<span style=color:#f92672>.</span>insert_entry(k<span style=color:#f92672>=</span>str(baz), v<span style=color:#f92672>=</span>str(baz <span style=color:#f92672>*</span> <span style=color:#ae81ff>2</span>))
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> result:
-</span></span><span style=display:flex><span>            log<span style=color:#f92672>.</span>warning(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Existing entry for </span><span style=color:#e6db74>{</span>baz<span style=color:#e6db74>}</span><span style=color:#e6db74>, need more batteries!&#34;</span>)
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span>
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>bar</span>(self, wow: int) <span style=color:#f92672>-&gt;</span> bool:
-</span></span><span style=display:flex><span>        result <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>_storage<span style=color:#f92672>.</span>get_entry(str(int(wow <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>)))
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> result <span style=color:#f92672>is</span> <span style=color:#66d9ef>None</span>:
-</span></span><span style=display:flex><span>            log<span style=color:#f92672>.</span>warning(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;No existing entry for </span><span style=color:#e6db74>{</span>wow<span style=color:#e6db74>}</span><span style=color:#e6db74>, need more batteries!&#34;</span>)
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> result <span style=color:#f92672>==</span> wow
-</span></span></code></pre></div><h3 id=interface>Interface
-<a class=anchor href=#interface>#</a></h3><p>This can be a straightforward interface or abstract class. It should declare all of the
-operations that implementors need to support. Some examples:</p><ol><li>Any storage that I use should support these operations</li><li>Any logging system that I use should support these operations</li><li>Any user-provided plugins must support these operations</li><li>Any environment where I want to execute my core logic should support these operations</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> abc <span style=color:#f92672>import</span> ABC, abstractmethod
-</span></span><span style=display:flex><span><span style=color:#f92672>from</span> typing <span style=color:#f92672>import</span> Optional
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StorageInterface</span>(ABC):
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@abstractmethod</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>insert_entry</span>(self, k: str, v: str) <span style=color:#f92672>-&gt;</span> bool:
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>pass</span>
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@abstractmethod</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_entry</span>(self, k: str) <span style=color:#f92672>-&gt;</span> Optional[str]:
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>pass</span>
-</span></span></code></pre></div><h3 id=plugin>Plugin
-<a class=anchor href=#plugin>#</a></h3><p>This is the concrete plugin that is scenario-specific and lets our core logic operate
-in that scenario without any other changes.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> my_package.storage.interface <span style=color:#f92672>import</span> StorageInterface
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StoragePluginNumberOne</span>(StorageInterface):
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self) <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>None</span>:
-</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_data <span style=color:#f92672>=</span> {}
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@abstractmethod</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>insert_entry</span>(self, k: str, v: str) <span style=color:#f92672>-&gt;</span> bool:
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> k <span style=color:#f92672>in</span> self<span style=color:#f92672>.</span>_data:
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
-</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_data[k] <span style=color:#f92672>=</span> v
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>True</span>
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@abstractmethod</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_entry</span>(self, k: str) <span style=color:#f92672>-&gt;</span> Optional[str]:
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>_data<span style=color:#f92672>.</span>get(k)
-</span></span></code></pre></div><h2 id=considerations>Considerations
-<a class=anchor href=#considerations>#</a></h2><h3 id=dependency-management>Dependency Management
-<a class=anchor href=#dependency-management>#</a></h3><p>For the code examples above, pay special attention to the <code>import</code> statements.</p><ol><li><code>Core Logic</code> depends ONLY on <code>Interface</code>. It is completely unaware of the <code>Plugin</code>.</li><li><code>Plugin</code> depends ONLY on <code>Interface</code>. It is completely unaware of the <code>Core Logic</code>.</li><li><code>Environment</code> depends on both <code>Core Logic</code> and the specific <code>Plugin</code>s that it loads<ol><li>The <code>Environment</code> is the root of our actual application. If it doesn&rsquo;t depend on
-something, then that thing doesn&rsquo;t need to be packaged in our app at all! So it&rsquo;s
-a good thing that we don&rsquo;t have to depend on plugins we&rsquo;re not using.</li><li>It takes more work to build a system where <code>Environment</code> can depend ONLY on the
-<code>Core Logic</code> and <code>Interface</code>. It&rsquo;s possible, but won&rsquo;t be covered here.</li></ol></li></ol><h3 id=multiple-environments>Multiple Environments
-<a class=anchor href=#multiple-environments>#</a></h3><p>Since the <code>Environment</code> is responsible for selecting a plugin to use, each <code>Environment</code>
+I did not invent this pattern, I am just formalizing it for your consumption.</p>
+</div>
+<h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
+<ol>
+<li>The <code>Environment</code> is what executes the whole system. It knows how to:<ol>
+<li>Initialize the core logic</li>
+<li>Find and initialize plugins</li>
+<li>Plug them into the core logic</li>
+<li>Run the core logic</li>
+</ol>
+</li>
+<li>The <code>Core Logic</code> is the reusable logic that will rely on our plugins</li>
+<li>The <code>Interface</code> is an interface or specification of what the plugins need to support</li>
+<li>The <code>Plugin</code> is one module that supports all the needed operations. It can be plugged
+    in, potentially alongside other plugins for the core logic to use.</li>
+</ol>
+<pre class="mermaid"><code>flowchart TD
+    subgraph env[Environment]
+        prepare([prepare plugins])
+        provide([provide plugins])
+        launch([launch])
+    end
+
+    subgraph core[Core Logic]
+        sac([setup / init])
+        sa1([action 1])
+        sa2([action 2])
+    end
+
+    subgraph interface[Interface]
+        o1((op1))
+        o2((op2))
+        o3((op3))
+    end
+
+    subgraph plugin1[Plugin]
+        p1c([setup / init])
+        p1o1((op1))
+        p1o2((op2))
+        p1o3((op3))
+    end
+
+    sa1 --&gt; o1
+    sa2 --&gt; o2
+    sa2 --&gt; o3
+    o1 -.-&gt; p1o1
+    o2 -.-&gt; p1o2
+    o3 -.-&gt; p1o3
+
+    prepare --&gt; p1c
+    provide --&gt; sac
+    launch --&gt; sa1
+    sa1 --&gt; sa2</code></pre>
+<p>With this architecture, you can easily add new <code>Plugin</code>s and get them working quickly
+without changing your <code>Core Logic</code>, which is the goal we wanted to achieve!</p>
+<p>Keep in mind that this diagram is not canonical. Some things that may differ:
+1. The <code>Environment</code> may provide <code>Plugins</code> as arguments to the <code>Core Logic</code>'s actual
+    methods, rather than providing them at setup
+2. The <code>Core Logic</code> could just be some hard-coded functions with no setup process
+3. The <code>Core Logic</code> may have several separately-triggered actions available
+4. The <code>Core Logic</code> may be invoked by someone other than the <code>Environment</code>, e.g.
+    if the <code>Core Logic</code> is actually a service launched by the <code>Environment</code>
+5. The <code>Interface</code> may actually define its own initialization method and be initialized
+    directly by the core logic (after some other loading process to get access to it)
+6. The <code>Plugins</code> may be initialized and passed to the environment a different way</p>
+<p>In the wild, you may know or discover that:
+1. All of these components may have different names
+2. The most common reusable tool for this is a Dependency Injection Framework
+3. Some systems such as Interface Definition Languages only provide <code>Interface</code> or
+    a different, limited subset of the components above.
+4. You may have several layers of plugins (and plugins with their own plugins)
+5. There is a LOT of fancy stuff you can build ontop of this, or to enhance it.
+    We don't cover that in this doc, but maybe in a future one!</p>
+<h2 id="a-concrete-example-in-code">A Concrete Example in Code<a class="headerlink" href="#a-concrete-example-in-code" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Keep in mind, the components will not always be in code. You can implement this pattern
+using separate microservices, WebAssembly modules or mix of component types.</p>
+<p>The important thing to understand is the dependency structure, and this provides a concrete
+example that can help illustrate how the architecture is applied.</p>
+</div>
+<h3 id="environment">Environment<a class="headerlink" href="#environment" title="Permanent link">&para;</a></h3>
+<p>For this example I express the <code>Environment</code> as a <code>main</code> method. This is essentially the
+role that the <code>Environment</code> generally takes, organizing all of the other computation.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_package.storage.plugin_one</span><span class="w"> </span><span class="kn">import</span> <span class="n">StoragePluginNumberOne</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_package.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoreLogic</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">_prep_core_logic</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">CoreLogic</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">storage</span> <span class="o">=</span> <span class="n">StoragePluginNumberOne</span><span class="p">()</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">core</span> <span class="o">=</span> <span class="n">CoreLogic</span><span class="p">(</span><span class="n">storage</span><span class="o">=</span><span class="n">storage</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">return</span> <span class="n">core</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="c1"># this environment is just for running a simple test</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">core</span> <span class="o">=</span> <span class="n">_prep_core_logic</span><span class="p">()</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="core-logic">Core Logic<a class="headerlink" href="#core-logic" title="Permanent link">&para;</a></h3>
+<p>This is the concrete class or set of functions that use our pluggable components. There should be only one logic that is applied to any plugins that are prepared. We should have a mechanism to receive at runtime the specific plugin implementations that will be used.</p>
+<p>In the code below, pay attention to the use of <code>StorageInterface</code> and <code>_storage</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_package.storage.interface</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageInterface</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">CoreLogic</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">storage</span><span class="p">:</span> <span class="n">StorageInterface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span> <span class="o">=</span> <span class="n">storage</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baz</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="o">.</span><span class="n">insert_entry</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">baz</span><span class="p">),</span> <span class="n">v</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">baz</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Existing entry for </span><span class="si">{</span><span class="n">baz</span><span class="si">}</span><span class="s2">, need more batteries!&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="k">return</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wow</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_storage</span><span class="o">.</span><span class="n">get_entry</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">wow</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)))</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No existing entry for </span><span class="si">{</span><span class="n">wow</span><span class="si">}</span><span class="s2">, need more batteries!&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        <span class="k">return</span> <span class="n">result</span> <span class="o">==</span> <span class="n">wow</span>
+</code></pre></div>
+<h3 id="interface">Interface<a class="headerlink" href="#interface" title="Permanent link">&para;</a></h3>
+<p>This can be a straightforward interface or abstract class. It should declare all of the
+operations that implementors need to support. Some examples:
+1. Any storage that I use should support these operations
+2. Any logging system that I use should support these operations
+3. Any user-provided plugins must support these operations
+4. Any environment where I want to execute my core logic should support these operations</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">StorageInterface</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="nd">@abstractmethod</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">insert_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="k">pass</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="nd">@abstractmethod</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="k">pass</span>
+</code></pre></div>
+<h3 id="plugin">Plugin<a class="headerlink" href="#plugin" title="Permanent link">&para;</a></h3>
+<p>This is the concrete plugin that is scenario-specific and lets our core logic operate
+in that scenario without any other changes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_package.storage.interface</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageInterface</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">StoragePluginNumberOne</span><span class="p">(</span><span class="n">StorageInterface</span><span class="p">):</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="nd">@abstractmethod</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">insert_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>            <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="k">return</span> <span class="kc">True</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="nd">@abstractmethod</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="considerations">Considerations<a class="headerlink" href="#considerations" title="Permanent link">&para;</a></h2>
+<h3 id="dependency-management">Dependency Management<a class="headerlink" href="#dependency-management" title="Permanent link">&para;</a></h3>
+<p>For the code examples above, pay special attention to the <code>import</code> statements.
+1. <code>Core Logic</code> depends ONLY on <code>Interface</code>. It is completely unaware of the <code>Plugin</code>.
+2. <code>Plugin</code> depends ONLY on <code>Interface</code>. It is completely unaware of the <code>Core Logic</code>.
+3. <code>Environment</code> depends on both <code>Core Logic</code> and the specific <code>Plugin</code>s that it loads
+    1. The <code>Environment</code> is the root of our actual application. If it doesn't depend on
+        something, then that thing doesn't need to be packaged in our app at all! So it's
+        a good thing that we don't have to depend on plugins we're not using.
+    2. It takes more work to build a system where <code>Environment</code> can depend ONLY on the
+        <code>Core Logic</code> and <code>Interface</code>. It's possible, but won't be covered here.</p>
+<h3 id="multiple-environments">Multiple Environments<a class="headerlink" href="#multiple-environments" title="Permanent link">&para;</a></h3>
+<p>Since the <code>Environment</code> is responsible for selecting a plugin to use, each <code>Environment</code>
 that wants to use the <code>Core Logic</code> can define any new plugins that are needed, as part
-of onboarding.</p><h3 id=testing>Testing
-<a class=anchor href=#testing>#</a></h3><p>There are a few benefits you can count on for testing, when you use this architecture:</p><ol><li>You can have a trivial &ldquo;dummy&rdquo; implementation which can be used:<ol><li>To test the <code>Core Logic</code> E2E without relying on any &ldquo;real&rdquo; plugins</li><li>To create an E2E test that can try every plugin and expect similar outcomes</li></ol></li><li>No matter your language, the <code>Interface</code> can generally be mocked for unit testing</li></ol></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/uberblah/software-quality/commit/8a70d388e7ed0cc4c4967f7b026aba3bc895bc50 title='Last modified by uberblah | 2023-04-01' target=_blank rel=noopener><img src=/software-quality/svg/calendar.svg class=book-icon alt=Calendar>
-<span>2023-04-01</span></a></div><div><a class="flex align-center" href=https://github.com/uberblah/software-quality/edit/main/content/design-patterns/plugin-architecture.md target=_blank rel=noopener><img src=/software-quality/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this page</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script><footer><br><div class=site-footer><ul><li>Views expressed are those of the author and not any current or past employer.</li><li>This site presents general industry practices, not trade secrets or inventions.</li><li>I am not a lawyer. Technical notes on Privacy and Security are not legal advice.</li></ul></div></footer></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#why>Why?</a></li><li><a href=#components>Components</a></li><li><a href=#a-concrete-example-in-code>A Concrete Example in Code</a><ul><li><a href=#environment>Environment</a></li><li><a href=#core-logic>Core Logic</a></li><li><a href=#interface>Interface</a></li><li><a href=#plugin>Plugin</a></li></ul></li><li><a href=#considerations>Considerations</a><ul><li><a href=#dependency-management>Dependency Management</a></li><li><a href=#multiple-environments>Multiple Environments</a></li><li><a href=#testing>Testing</a></li></ul></li></ul></nav></div></aside></main></body></html>
+of onboarding.</p>
+<h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
+<p>There are a few benefits you can count on for testing, when you use this architecture:
+1. You can have a trivial "dummy" implementation which can be used:
+    1. To test the <code>Core Logic</code> E2E without relying on any "real" plugins
+    2. To create an E2E test that can try every plugin and expect similar outcomes
+2. No matter your language, the <code>Interface</code> can generally be mocked for unit testing</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+  <div class="site-footer">
+    <ul>
+      <li>
+        Views expressed are those of the author and not any current or past employer.
+      </li>
+      <li>
+        This site presents general industry practices, not trade secrets or inventions.
+      </li>
+      <li>
+        I am not a lawyer. Technical notes on Privacy and Security are not legal advice.
+      </li>
+    </ul>
+  </div>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/uberblah/software-quality" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
