@@ -1,0 +1,95 @@
+site_name: Software Quality
+site_url: https://uberblah.github.io/software-quality
+site_description: A personal aggregation of software engineering best practices, templates, patterns, and principles
+site_author: uberblah
+
+repo_url: https://github.com/uberblah/software-quality
+repo_name: uberblah/software-quality
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  custom_dir: overrides
+  palette:
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  font:
+    text: Ubuntu
+    code: Ubuntu Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.action.edit
+    - content.code.copy
+    - toc.follow
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Project Lifecycle:
+      - project-lifecycle/index.md
+      - Requirements Gathering: project-lifecycle/requirements-gathering.md
+      - Design: project-lifecycle/design.md
+      - Planning: project-lifecycle/planning.md
+      - Implementation: project-lifecycle/implementation.md
+      - Release: project-lifecycle/release.md
+      - Operation: project-lifecycle/operation.md
+      - Deprecation: project-lifecycle/deprecation.md
+  - Standards:
+      - standards/index.md
+      - Design Template: standards/design-template.md
+  - Principles:
+      - principles/index.md
+      - Solve the Right Problem: principles/solve-the-right-problem.md
+      - Separate Concerns: principles/separation-of-concerns.md
+      - O(1) Effort per Change: principles/o1-effort-per-change.md
+  - Design Patterns:
+      - design-patterns/index.md
+      - Clean Plugin Architecture: design-patterns/plugin-architecture.md
+  - System Archetypes:
+      - system-archetypes/index.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/uberblah/software-quality
+
+extra_css:
+  - stylesheets/extra.css

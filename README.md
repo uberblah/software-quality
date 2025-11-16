@@ -39,3 +39,7 @@ All of the above is grounded in widespread industry challenges and practices.
 2. It will not address challenges that are specific to any current or past employer, nor any solution considered trade secrets
 
 I hope to provide value here by collecting all of this information in one place, in a useful layout for sharing.
+
+# Technology
+
+This site is built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/), a static site generator that uses only standard Markdown features for maximum portability. See [DEVELOPMENT.md](DEVELOPMENT.md) for setup instructions.

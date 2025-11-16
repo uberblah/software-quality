@@ -1,0 +1,86 @@
+/* Custom heading numbering */
+body {
+    counter-reset: h2;
+}
+
+h2 {
+    counter-reset: h3;
+}
+
+h3 {
+    counter-reset: h4;
+}
+
+h4 {
+    counter-reset: h5;
+}
+
+h5 {
+    counter-reset: h6;
+}
+
+article h2:before {
+    content: counter(h2, decimal) ". ";
+    counter-increment: h2;
+}
+
+article h3:before {
+    content: counter(h2, decimal) "." counter(h3, decimal) ". ";
+    counter-increment: h3;
+}
+
+article h4:before {
+    content: counter(h2, decimal) "." counter(h3, decimal) "." counter(h4, decimal) ". ";
+    counter-increment: h4;
+}
+
+article h5:before {
+    content: counter(h2, decimal) "." counter(h3, decimal) "." counter(h4, decimal) "." counter(h5, decimal) ". ";
+    counter-increment: h5;
+}
+
+article h6:before {
+    content: counter(h2, decimal) "." counter(h3, decimal) "." counter(h4, decimal) "." counter(h5, decimal) "." counter(h6, decimal) ". ";
+    counter-increment: h6;
+}
+
+h2.nocount:before,
+h3.nocount:before,
+h4.nocount:before,
+h5.nocount:before,
+h6.nocount:before {
+    content: "";
+    counter-increment: none;
+}
+
+/* Custom fonts */
+h1, h2, h3, h4, h5, h6, p, li a, tr a {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Custom footer styling */
+.md-footer-meta {
+    text-align: center;
+}
+
+.site-footer {
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #999999;
+    padding: 10px 15px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.site-footer ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.site-footer li {
+    margin: 5px 0;
+}

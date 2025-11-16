@@ -1,11 +1,50 @@
 # Development of this Repo
 
 ## Tools
-- [[Hugo](gohugo.io)]
+- [MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
+- Conda for environment management
+
+## Setup
+
+### First Time Setup
+```bash
+# Create and activate the conda environment
+conda create -n software-quality python=3.11 -y
+conda activate software-quality
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Activate Environment
+Every time you work on the project, activate the environment:
+```bash
+conda activate software-quality
+```
 
 ## Test A Change
+Start the local development server with live reload:
+```bash
+mkdocs serve
 ```
-hugo server -D
+
+Then open http://127.0.0.1:8000 in your browser.
+
+## Build the Site
+Build the static site (output goes to `site/` directory):
+```bash
+mkdocs build
+```
+
+To build with strict mode (fails on warnings like broken links):
+```bash
+mkdocs build --strict
+```
+
+## Deploy to GitHub Pages
+Deploy the site to GitHub Pages (gh-pages branch):
+```bash
+mkdocs gh-deploy
 ```
 
 ## Site Structure Plan
