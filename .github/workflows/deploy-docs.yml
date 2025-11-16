@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: false  # We don't use submodules anymore
 
       - name: Setup Python
         uses: actions/setup-python@v5
