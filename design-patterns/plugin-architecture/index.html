@@ -1568,21 +1568,25 @@
 <h1 id="the-clean-plugin-architecture">The Clean Plugin Architecture<a class="headerlink" href="#the-clean-plugin-architecture" title="Permanent link">&para;</a></h1>
 <h2 id="why">Why?<a class="headerlink" href="#why" title="Permanent link">&para;</a></h2>
 <p>When building software, it's critical to identify the portions of the software that
-may evolve independently or change direction in the future. Classic examples include:
-1. You may change your backing storage
-2. You may change the way you log things
-3. You may want to relocate part of your logic to its own service later
-4. You may want to redistribute chunks of your service logic in a CLI
-5. Your service may want to integrate with many similar customer systems
-6. You may want to allow customers to extend your service with custom logic</p>
+may evolve independently or change direction in the future. Classic examples include:</p>
+<ol>
+<li>You may change your backing storage</li>
+<li>You may change the way you log things</li>
+<li>You may want to relocate part of your logic to its own service later</li>
+<li>You may want to redistribute chunks of your service logic in a CLI</li>
+<li>Your service may want to integrate with many similar customer systems</li>
+<li>You may want to allow customers to extend your service with custom logic</li>
+</ol>
 <p>We want to make it so that none of your system needs to be rewritten or copied for each
 new scenario. Each time you add a new scenario, you should only have to write some new
 code to directly support it. None of your core logic should change.</p>
-<p>You'll actually need multiple components in order to separate those pieces cleanly:
-1. Defining the non-changing, reusable core logic (<code>Core Logic</code>)
-2. Defining what your core logic requires from each plugin or module (<code>Interface</code>)
-3. Defining the plugins and modules themselves (<code>Plugin</code>)
-4. Connecting the plugins and actually running your core logic on them (<code>Environment</code>)</p>
+<p>You'll actually need multiple components in order to separate those pieces cleanly:</p>
+<ol>
+<li>Defining the non-changing, reusable core logic (<code>Core Logic</code>)</li>
+<li>Defining what your core logic requires from each plugin or module (<code>Interface</code>)</li>
+<li>Defining the plugins and modules themselves (<code>Plugin</code>)</li>
+<li>Connecting the plugins and actually running your core logic on them (<code>Environment</code>)</li>
+</ol>
 <p>All of the concerns above are things you may want to evolve independently over time,
 so each should get their own component in this design.</p>
 <p>The Clean Plugin Architecture provides a reusable / implementable set of components
@@ -1647,24 +1651,28 @@ I did not invent this pattern, I am just formalizing it for your consumption.</p
     sa1 --&gt; sa2</code></pre>
 <p>With this architecture, you can easily add new <code>Plugin</code>s and get them working quickly
 without changing your <code>Core Logic</code>, which is the goal we wanted to achieve!</p>
-<p>Keep in mind that this diagram is not canonical. Some things that may differ:
-1. The <code>Environment</code> may provide <code>Plugins</code> as arguments to the <code>Core Logic</code>'s actual
-    methods, rather than providing them at setup
-2. The <code>Core Logic</code> could just be some hard-coded functions with no setup process
-3. The <code>Core Logic</code> may have several separately-triggered actions available
-4. The <code>Core Logic</code> may be invoked by someone other than the <code>Environment</code>, e.g.
-    if the <code>Core Logic</code> is actually a service launched by the <code>Environment</code>
-5. The <code>Interface</code> may actually define its own initialization method and be initialized
-    directly by the core logic (after some other loading process to get access to it)
-6. The <code>Plugins</code> may be initialized and passed to the environment a different way</p>
-<p>In the wild, you may know or discover that:
-1. All of these components may have different names
-2. The most common reusable tool for this is a Dependency Injection Framework
-3. Some systems such as Interface Definition Languages only provide <code>Interface</code> or
-    a different, limited subset of the components above.
-4. You may have several layers of plugins (and plugins with their own plugins)
-5. There is a LOT of fancy stuff you can build ontop of this, or to enhance it.
-    We don't cover that in this doc, but maybe in a future one!</p>
+<p>Keep in mind that this diagram is not canonical. Some things that may differ:</p>
+<ol>
+<li>The <code>Environment</code> may provide <code>Plugins</code> as arguments to the <code>Core Logic</code>'s actual
+    methods, rather than providing them at setup</li>
+<li>The <code>Core Logic</code> could just be some hard-coded functions with no setup process</li>
+<li>The <code>Core Logic</code> may have several separately-triggered actions available</li>
+<li>The <code>Core Logic</code> may be invoked by someone other than the <code>Environment</code>, e.g.
+    if the <code>Core Logic</code> is actually a service launched by the <code>Environment</code></li>
+<li>The <code>Interface</code> may actually define its own initialization method and be initialized
+    directly by the core logic (after some other loading process to get access to it)</li>
+<li>The <code>Plugins</code> may be initialized and passed to the environment a different way</li>
+</ol>
+<p>In the wild, you may know or discover that:</p>
+<ol>
+<li>All of these components may have different names</li>
+<li>The most common reusable tool for this is a Dependency Injection Framework</li>
+<li>Some systems such as Interface Definition Languages only provide <code>Interface</code> or
+    a different, limited subset of the components above.</li>
+<li>You may have several layers of plugins (and plugins with their own plugins)</li>
+<li>There is a LOT of fancy stuff you can build ontop of this, or to enhance it.
+    We don't cover that in this doc, but maybe in a future one!</li>
+</ol>
 <h2 id="a-concrete-example-in-code">A Concrete Example in Code<a class="headerlink" href="#a-concrete-example-in-code" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -1719,11 +1727,13 @@ role that the <code>Environment</code> generally takes, organizing all of the ot
 </code></pre></div>
 <h3 id="interface">Interface<a class="headerlink" href="#interface" title="Permanent link">&para;</a></h3>
 <p>This can be a straightforward interface or abstract class. It should declare all of the
-operations that implementors need to support. Some examples:
-1. Any storage that I use should support these operations
-2. Any logging system that I use should support these operations
-3. Any user-provided plugins must support these operations
-4. Any environment where I want to execute my core logic should support these operations</p>
+operations that implementors need to support. Some examples:</p>
+<ol>
+<li>Any storage that I use should support these operations</li>
+<li>Any logging system that I use should support these operations</li>
+<li>Any user-provided plugins must support these operations</li>
+<li>Any environment where I want to execute my core logic should support these operations</li>
+</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
@@ -1758,25 +1768,33 @@ in that scenario without any other changes.</p>
 </code></pre></div>
 <h2 id="considerations">Considerations<a class="headerlink" href="#considerations" title="Permanent link">&para;</a></h2>
 <h3 id="dependency-management">Dependency Management<a class="headerlink" href="#dependency-management" title="Permanent link">&para;</a></h3>
-<p>For the code examples above, pay special attention to the <code>import</code> statements.
-1. <code>Core Logic</code> depends ONLY on <code>Interface</code>. It is completely unaware of the <code>Plugin</code>.
-2. <code>Plugin</code> depends ONLY on <code>Interface</code>. It is completely unaware of the <code>Core Logic</code>.
-3. <code>Environment</code> depends on both <code>Core Logic</code> and the specific <code>Plugin</code>s that it loads
-    1. The <code>Environment</code> is the root of our actual application. If it doesn't depend on
-        something, then that thing doesn't need to be packaged in our app at all! So it's
-        a good thing that we don't have to depend on plugins we're not using.
-    2. It takes more work to build a system where <code>Environment</code> can depend ONLY on the
-        <code>Core Logic</code> and <code>Interface</code>. It's possible, but won't be covered here.</p>
+<p>For the code examples above, pay special attention to the <code>import</code> statements.</p>
+<ol>
+<li><code>Core Logic</code> depends ONLY on <code>Interface</code>. It is completely unaware of the <code>Plugin</code>.</li>
+<li><code>Plugin</code> depends ONLY on <code>Interface</code>. It is completely unaware of the <code>Core Logic</code>.</li>
+<li><code>Environment</code> depends on both <code>Core Logic</code> and the specific <code>Plugin</code>s that it loads<ol>
+<li>The <code>Environment</code> is the root of our actual application. If it doesn't depend on
+    something, then that thing doesn't need to be packaged in our app at all! So it's
+    a good thing that we don't have to depend on plugins we're not using.</li>
+<li>It takes more work to build a system where <code>Environment</code> can depend ONLY on the
+    <code>Core Logic</code> and <code>Interface</code>. It's possible, but won't be covered here.</li>
+</ol>
+</li>
+</ol>
 <h3 id="multiple-environments">Multiple Environments<a class="headerlink" href="#multiple-environments" title="Permanent link">&para;</a></h3>
 <p>Since the <code>Environment</code> is responsible for selecting a plugin to use, each <code>Environment</code>
 that wants to use the <code>Core Logic</code> can define any new plugins that are needed, as part
 of onboarding.</p>
 <h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
-<p>There are a few benefits you can count on for testing, when you use this architecture:
-1. You can have a trivial "dummy" implementation which can be used:
-    1. To test the <code>Core Logic</code> E2E without relying on any "real" plugins
-    2. To create an E2E test that can try every plugin and expect similar outcomes
-2. No matter your language, the <code>Interface</code> can generally be mocked for unit testing</p>
+<p>There are a few benefits you can count on for testing, when you use this architecture:</p>
+<ol>
+<li>You can have a trivial "dummy" implementation which can be used:<ol>
+<li>To test the <code>Core Logic</code> E2E without relying on any "real" plugins</li>
+<li>To create an E2E test that can try every plugin and expect similar outcomes</li>
+</ol>
+</li>
+<li>No matter your language, the <code>Interface</code> can generally be mocked for unit testing</li>
+</ol>
 
 
 
