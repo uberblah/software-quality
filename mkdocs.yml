@@ -46,7 +46,7 @@ plugins:
       ServerURL: https://kroki.io
       FencePrefix: ""
       EnableBlockDiag: true
-      Enablebpmn: true
+      EnableBpmn: true
       EnableExcalidraw: true
       EnableMermaid: false
       FileTypes:
