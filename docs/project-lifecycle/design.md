@@ -42,6 +42,7 @@ If your problem is very large, you may have multiple "sub-breakdown" stages befo
 When you've filled in [this whole design doc template](../standards/design-template.md) and gotten it approved by your key approvers.
 
 NOTE: You can get informal approval in 3 phases as you build the document:
+
 1. Requirements, to make sure you're solving the right problem
 2. Proposal, to make sure your overall approach makes sense
 3. Details, to make sure you're getting all the details right and it's ready for planning
