@@ -42,6 +42,16 @@ theme:
 
 plugins:
   - search
+  - kroki:
+      ServerURL: https://kroki.io
+      FencePrefix: ""
+      EnableBlockDiag: true
+      Enablebpmn: true
+      EnableExcalidraw: true
+      EnableMermaid: false
+      FileTypes:
+        - png
+        - svg
 
 markdown_extensions:
   - admonition
