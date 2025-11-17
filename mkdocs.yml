@@ -14,14 +14,14 @@ theme:
     # Palette toggle for dark mode
     - scheme: slate
       primary: indigo
-      accent: indigo
+      accent: blue
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
     # Palette toggle for light mode
     - scheme: default
       primary: indigo
-      accent: indigo
+      accent: blue
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
@@ -58,13 +58,14 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - tables
+  - def_list
   - toc:
       permalink: true
 
 nav:
   - Home: index.md
   - Project Lifecycle:
-      - project-lifecycle/index.md
+      - Overview: project-lifecycle/index.md
       - Requirements Gathering: project-lifecycle/requirements-gathering.md
       - Design: project-lifecycle/design.md
       - Planning: project-lifecycle/planning.md
@@ -73,18 +74,18 @@ nav:
       - Operation: project-lifecycle/operation.md
       - Deprecation: project-lifecycle/deprecation.md
   - Standards:
-      - standards/index.md
+      - Overview: standards/index.md
       - Design Template: standards/design-template.md
   - Principles:
-      - principles/index.md
+      - Overview: principles/index.md
       - Solve the Right Problem: principles/solve-the-right-problem.md
       - Separate Concerns: principles/separation-of-concerns.md
       - O(1) Effort per Change: principles/o1-effort-per-change.md
   - Design Patterns:
-      - design-patterns/index.md
+      - Overview: design-patterns/index.md
       - Clean Plugin Architecture: design-patterns/plugin-architecture.md
   - System Archetypes:
-      - system-archetypes/index.md
+      - Overview: system-archetypes/index.md
 
 extra:
   social:
