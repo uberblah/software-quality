@@ -10,6 +10,7 @@ description: A structure for isolating the parts of your software and making it 
 
 When building software, it's critical to identify the portions of the software that
 may evolve independently or change direction in the future. Classic examples include:
+
 1. You may change your backing storage
 2. You may change the way you log things
 3. You may want to relocate part of your logic to its own service later
@@ -22,6 +23,7 @@ new scenario. Each time you add a new scenario, you should only have to write so
 code to directly support it. None of your core logic should change.
 
 You'll actually need multiple components in order to separate those pieces cleanly:
+
 1. Defining the non-changing, reusable core logic (`Core Logic`)
 2. Defining what your core logic requires from each plugin or module (`Interface`)
 3. Defining the plugins and modules themselves (`Plugin`)
@@ -95,6 +97,7 @@ With this architecture, you can easily add new `Plugin`s and get them working qu
 without changing your `Core Logic`, which is the goal we wanted to achieve!
 
 Keep in mind that this diagram is not canonical. Some things that may differ:
+
 1. The `Environment` may provide `Plugins` as arguments to the `Core Logic`'s actual
     methods, rather than providing them at setup
 2. The `Core Logic` could just be some hard-coded functions with no setup process
@@ -106,6 +109,7 @@ Keep in mind that this diagram is not canonical. Some things that may differ:
 6. The `Plugins` may be initialized and passed to the environment a different way
 
 In the wild, you may know or discover that:
+
 1. All of these components may have different names
 2. The most common reusable tool for this is a Dependency Injection Framework
 3. Some systems such as Interface Definition Languages only provide `Interface` or
@@ -180,6 +184,7 @@ class CoreLogic:
 
 This can be a straightforward interface or abstract class. It should declare all of the
 operations that implementors need to support. Some examples:
+
 1. Any storage that I use should support these operations
 2. Any logging system that I use should support these operations
 3. Any user-provided plugins must support these operations
@@ -228,6 +233,7 @@ class StoragePluginNumberOne(StorageInterface):
 ### Dependency Management
 
 For the code examples above, pay special attention to the `import` statements.
+
 1. `Core Logic` depends ONLY on `Interface`. It is completely unaware of the `Plugin`.
 2. `Plugin` depends ONLY on `Interface`. It is completely unaware of the `Core Logic`.
 3. `Environment` depends on both `Core Logic` and the specific `Plugin`s that it loads
@@ -246,6 +252,7 @@ of onboarding.
 ### Testing
 
 There are a few benefits you can count on for testing, when you use this architecture:
+
 1. You can have a trivial "dummy" implementation which can be used:
     1. To test the `Core Logic` E2E without relying on any "real" plugins
     2. To create an E2E test that can try every plugin and expect similar outcomes
