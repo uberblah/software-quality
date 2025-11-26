@@ -2104,6 +2104,7 @@
 <li><strong>Internal Knowledge</strong>: Component A constructs Component B's internal objects or accesses its private fields.</li>
 <li><strong>Circular Dependencies</strong>: A depends on B, and B depends on A. They must be deployed together.</li>
 <li><strong>Lockstep Deployment</strong>: You cannot deploy Service A without also deploying Service B.</li>
+<li><strong>Rigid Data Formats</strong>: Data is exchanged as raw bytes, or in language-specific formats (e.g., Java objects, Python objects), where adding fields or changing languages is a breaking change.</li>
 </ul>
 <h3 id="signs-of-loose-coupling-good">Signs of Loose Coupling (Good)<a class="headerlink" href="#signs-of-loose-coupling-good" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2119,6 +2120,7 @@
 <li><strong>Law of Demeter</strong>: A component should only talk to its immediate friends. Don't reach through an object to get to another (<code>a.getB().getC().doSomething()</code> is bad).</li>
 <li><strong>Integration Patterns</strong>: Prefer messaging and events over direct synchronous calls for cross-service communication, unless you have a good reason not to.</li>
 <li><strong>Contract Testing</strong>: Define the contract between components explicitly. Use automatically-run unit tests to verify and protect the contract.</li>
+<li><strong>Evolvable Formats</strong>: Use language-agnostic formats for data exchange and persistence, that allow code &amp; data to evolve independently. Examples include JSON (if carefully managed, with JSON Schema), Protobuf and Thrift.</li>
 </ul>
 
 
