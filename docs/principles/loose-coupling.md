@@ -20,6 +20,7 @@ This is the most important factor for software agility. If you want to move fast
 *   **Internal Knowledge**: Component A constructs Component B's internal objects or accesses its private fields.
 *   **Circular Dependencies**: A depends on B, and B depends on A. They must be deployed together.
 *   **Lockstep Deployment**: You cannot deploy Service A without also deploying Service B.
+*   **Rigid Data Formats**: Data is exchanged as raw bytes, or in language-specific formats (e.g., Java objects, Python objects), where adding fields or changing languages is a breaking change.
 
 ### Signs of Loose Coupling (Good)
 *   **Stable Interfaces**: Components interact via defined APIs (REST, gRPC, public methods) that don't expose internal implementation.
@@ -34,3 +35,4 @@ This is the most important factor for software agility. If you want to move fast
 *   **Law of Demeter**: A component should only talk to its immediate friends. Don't reach through an object to get to another (`a.getB().getC().doSomething()` is bad).
 *   **Integration Patterns**: Prefer messaging and events over direct synchronous calls for cross-service communication, unless you have a good reason not to.
 *   **Contract Testing**: Define the contract between components explicitly. Use automatically-run unit tests to verify and protect the contract.
+*   **Evolvable Formats**: Use language-agnostic formats for data exchange and persistence, that allow code & data to evolve independently. Examples include JSON (if carefully managed, with JSON Schema), Protobuf and Thrift.
