@@ -6,13 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Software is soft; it is meant to change. Design for malleability.">
+        <meta name="description" content="Loose coupling is the primary enabler of agility.">
       
       
         <meta name="author" content="uberblah">
       
       
-        <link rel="canonical" href="https://uberblah.github.io/software-quality/principles/expect-change/">
+        <link rel="canonical" href="https://uberblah.github.io/software-quality/principles/loose-coupling/">
       
       
         <link rel="prev" href="../isolate-complexity/">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Expect Change - Software Quality</title>
+        <title>Loose Coupling - Software Quality</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#expect-change" class="md-skip">
+        <a href="#loose-coupling" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Expect Change
+              Loose Coupling
             
           </span>
         </div>
@@ -1468,7 +1468,7 @@
   <span class="md-ellipsis">
     
   
-    Expect Change
+    Loose Coupling
   
 
     
@@ -1486,7 +1486,7 @@
   <span class="md-ellipsis">
     
   
-    Expect Change
+    Loose Coupling
   
 
     
@@ -1523,10 +1523,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#guideline" class="md-nav__link">
+  <a href="#identifying-coupling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Guideline
+        Identifying Coupling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Identifying Coupling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signs-of-tight-coupling-bad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signs of Tight Coupling (Bad)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signs-of-loose-coupling-good" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signs of Loose Coupling (Good)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guidelines
       
     </span>
   </a>
@@ -1978,10 +2017,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#guideline" class="md-nav__link">
+  <a href="#identifying-coupling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Guideline
+        Identifying Coupling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Identifying Coupling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signs-of-tight-coupling-bad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signs of Tight Coupling (Bad)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signs-of-loose-coupling-good" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signs of Loose Coupling (Good)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guidelines
       
     </span>
   </a>
@@ -2006,7 +2084,7 @@
 
 
   
-    <a href="https://github.com/uberblah/software-quality/edit/main/docs/principles/expect-change.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/uberblah/software-quality/edit/main/docs/principles/loose-coupling.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2014,15 +2092,33 @@
   
 
 
-<h1 id="expect-change">Expect Change<a class="headerlink" href="#expect-change" title="Permanent link">&para;</a></h1>
+<h1 id="loose-coupling">Loose Coupling<a class="headerlink" href="#loose-coupling" title="Permanent link">&para;</a></h1>
 <h2 id="what-is-it">What is it?<a class="headerlink" href="#what-is-it" title="Permanent link">&para;</a></h2>
-<p>Software is soft; it is meant to change. Requirements will change, scale will change, and technologies will change.</p>
-<h2 id="guideline">Guideline<a class="headerlink" href="#guideline" title="Permanent link">&para;</a></h2>
+<p>Coupling is the degree to which one component depends on the internal details of another. <strong>Loose coupling</strong> means components know as little as possible about each other. They interact through stable, narrow interfaces and make few assumptions about how the other side works.</p>
+<p>This is the most important factor for software agility. If you want to move fast, you must be able to change one part of the system without breaking (or rewriting) everything else.</p>
+<h2 id="identifying-coupling">Identifying Coupling<a class="headerlink" href="#identifying-coupling" title="Permanent link">&para;</a></h2>
+<h3 id="signs-of-tight-coupling-bad">Signs of Tight Coupling (Bad)<a class="headerlink" href="#signs-of-tight-coupling-bad" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Avoid "Final" designs</strong>: There is no such thing. Design for the current requirements plus a reasonable margin of flexibility.</li>
-<li><strong>Optimize for replaceability</strong>: It's often better to write code that is easy to delete and replace than code that is infinitely reusable.</li>
-<li><strong>Loose Coupling</strong>: Ensure changes in one area don't ripple through the system.</li>
-<li><strong>Assumption Check</strong>: If you assume something will "never" change, you are probably wrong. Build in seams where changes are most likely to occur.</li>
+<li><strong>Shared Database</strong>: Service A reads Service B's tables directly. If B changes its schema, A breaks.</li>
+<li><strong>Synchronous Chains</strong>: Service A calls B, which calls C, which calls D. If D is slow, A is slow. If D is down, A is down.</li>
+<li><strong>Internal Knowledge</strong>: Component A constructs Component B's internal objects or accesses its private fields.</li>
+<li><strong>Circular Dependencies</strong>: A depends on B, and B depends on A. They must be deployed together.</li>
+<li><strong>Lockstep Deployment</strong>: You cannot deploy Service A without also deploying Service B.</li>
+</ul>
+<h3 id="signs-of-loose-coupling-good">Signs of Loose Coupling (Good)<a class="headerlink" href="#signs-of-loose-coupling-good" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Stable Interfaces</strong>: Components interact via defined APIs (REST, gRPC, public methods) that don't expose internal implementation.</li>
+<li><strong>Asynchronous Events</strong>: Service A publishes an event ("OrderCreated"), and Service B reacts to it. A doesn't know B exists.</li>
+<li><strong>Independent Deployability</strong>: You can deploy a new version of Service A while Service B is running the old version, and nothing breaks.</li>
+<li><strong>Platform Agnostic</strong>: Data is exchanged in standard formats (JSON, Protobuf), not language-specific serialization.</li>
+</ul>
+<h2 id="guidelines">Guidelines<a class="headerlink" href="#guidelines" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Minimize Surface Area</strong>: The less you expose, the less others can couple to. See <a href="../minimize-interfaces/">Minimize Interfaces</a>.</li>
+<li><strong>Tell, Don't Ask</strong>: Don't ask an object for its data and then act on it. Tell the object what to do.</li>
+<li><strong>Law of Demeter</strong>: A component should only talk to its immediate friends. Don't reach through an object to get to another (<code>a.getB().getC().doSomething()</code> is bad).</li>
+<li><strong>Integration Patterns</strong>: Prefer messaging and events over direct synchronous calls for cross-service communication, unless you have a good reason not to.</li>
+<li><strong>Contract Testing</strong>: Define the contract between components explicitly. Use automatically-run unit tests to verify and protect the contract.</li>
 </ul>
 
 

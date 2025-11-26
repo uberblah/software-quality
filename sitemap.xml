@@ -33,10 +33,6 @@
          <lastmod>2025-11-26</lastmod>
     </url>
     <url>
-         <loc>https://uberblah.github.io/software-quality/principles/expect-change/</loc>
-         <lastmod>2025-11-26</lastmod>
-    </url>
-    <url>
          <loc>https://uberblah.github.io/software-quality/principles/if-its-not-written-its-not-happening/</loc>
          <lastmod>2025-11-26</lastmod>
     </url>
@@ -54,6 +50,10 @@
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/leaf-vs-root-problems/</loc>
+         <lastmod>2025-11-26</lastmod>
+    </url>
+    <url>
+         <loc>https://uberblah.github.io/software-quality/principles/loose-coupling/</loc>
          <lastmod>2025-11-26</lastmod>
     </url>
     <url>
