@@ -105,7 +105,7 @@ nav:
           - Minimize Interfaces: principles/minimize-interfaces.md
           - Clean Abstractions: principles/clean-abstractions.md
           - Isolate Complexity: principles/isolate-complexity.md
-          - Expect Change: principles/expect-change.md
+          - Loose Coupling: principles/loose-coupling.md
           - Minimize Dependencies: principles/minimize-dependencies.md
       - Code Quality:
           - The Rule of Two: principles/the-rule-of-two.md

@@ -27,7 +27,7 @@ Each page below describes one principle you can use to guide your software engin
 - [Minimize Interfaces](minimize-interfaces.md) - The best interface is the smallest one that does the job.
 - [Clean Abstractions](clean-abstractions.md) - Abstractions should simplify the mental model, not just hide code.
 - [Isolate Complexity](isolate-complexity.md) - You often cannot eliminate essential complexity, but you can isolate it.
-- [Expect Change](expect-change.md) - New opportunities will appear later in your project. Design a flexible system to enable moving fast.
+- [Loose Coupling](loose-coupling.md) - Loose coupling is the primary enabler of agility.
 - [Minimize Dependencies](minimize-dependencies.md) - Dependencies are liabilities, not free functionality.
 
 ## Code Quality
