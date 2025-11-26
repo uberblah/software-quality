@@ -2,3 +2,7 @@ resources/_gen
 
 # MkDocs
 site/
+
+# Python
+__pycache__
+venv
