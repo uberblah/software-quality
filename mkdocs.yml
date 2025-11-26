@@ -88,9 +88,29 @@ nav:
       - Design Template: standards/design-template.md
   - Principles:
       - Overview: principles/index.md
-      - Solve the Right Problem: principles/solve-the-right-problem.md
-      - Separate Concerns: principles/separation-of-concerns.md
-      - O(1) Effort per Change: principles/o1-effort-per-change.md
+      - Higher Judgment & Direction:
+          - Solve the Right Problem: principles/solve-the-right-problem.md
+          - What Ownership Is: principles/what-ownership-is.md
+          - If It's Not Written, It's Not Happening: principles/if-its-not-written-its-not-happening.md
+          - The Problem with Deprecation: principles/the-problem-with-deprecation.md
+      - Designing Solutions:
+          - Separate Concerns: principles/separation-of-concerns.md
+          - Design Incrementally: principles/design-incrementally.md
+          - The Automation Spectrum: principles/the-automation-spectrum.md
+          - Leaf vs Root Problems: principles/leaf-vs-root-problems.md
+          - O(1) Effort per Change: principles/o1-effort-per-change.md
+          - If They Can, They Will: principles/if-they-can-they-will.md
+          - Boring is Good: principles/boring-is-good.md
+          - Do Not Repeat Yourself: principles/do-not-repeat-yourself.md
+          - Minimize Interfaces: principles/minimize-interfaces.md
+          - Clean Abstractions: principles/clean-abstractions.md
+          - Isolate Complexity: principles/isolate-complexity.md
+          - Expect Change: principles/expect-change.md
+          - Minimize Dependencies: principles/minimize-dependencies.md
+      - Code Quality:
+          - The Rule of Two: principles/the-rule-of-two.md
+          - Tests Or It Isn't Done: principles/tests-or-it-isnt-done.md
+          - Isolate Tests: principles/isolate-tests.md
   - Design Patterns:
       - Overview: design-patterns/index.md
       - Clean Plugin Architecture: design-patterns/plugin-architecture.md

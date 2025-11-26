@@ -13,7 +13,7 @@ Anything you fail to document in the right way, or obtain the needed review for,
 ## Why?
 
 1. **Managing Up**: Your managers and peers need to know what you are doing and that it's valuable, feasible and aligned with necessary stakeholders. Otherwise you will lose trust, resources, publicity and personal credit, leading to project failure.
-2. **Managing Down**: Your team needs a point of reference for the plan, and proof of commitment from all stakeholders. Anything you fail to document, will be replaced by assumptions, guesses, or repeated re-alignment.
+2. **Managing Down**: Your team needs a point of reference for the plan, and proof of commitment from all stakeholders (including themselves). Anything you fail to document, will be replaced by assumptions, guesses, or repeated realignment.
 3. **Managing Partners**: Your partners need to manage up & down. They need to know what to expect and have a chance to provide feedback. Beyond that, they may need to demonstrate leadership of their own. Documenting their agreement is how you deliver the artifacts they need.
 4. **Managing Customers**: If the users of your system have not been consulted & studied, or that study has not been documented, then you can't show that you know what problem to solve. This is bad both practically and optically.
 
