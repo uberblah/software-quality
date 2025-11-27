@@ -2,142 +2,130 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://uberblah.github.io/software-quality/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/design-patterns/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/design-patterns/plugin-architecture/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/boring-is-good/</loc>
-         <lastmod>2025-11-26</lastmod>
-    </url>
-    <url>
-         <loc>https://uberblah.github.io/software-quality/principles/clean-abstractions/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/design-incrementally/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/do-not-repeat-yourself/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/if-its-not-written-its-not-happening/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/if-they-can-they-will/</loc>
-         <lastmod>2025-11-26</lastmod>
-    </url>
-    <url>
-         <loc>https://uberblah.github.io/software-quality/principles/isolate-complexity/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/isolate-tests/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/leaf-vs-root-problems/</loc>
-         <lastmod>2025-11-26</lastmod>
-    </url>
-    <url>
-         <loc>https://uberblah.github.io/software-quality/principles/loose-coupling/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/minimize-dependencies/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
-         <loc>https://uberblah.github.io/software-quality/principles/minimize-interfaces/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <loc>https://uberblah.github.io/software-quality/principles/modular-design/</loc>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/o1-effort-per-change/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/separation-of-concerns/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/solve-the-right-problem/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/tests-or-it-isnt-done/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/the-automation-spectrum/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/the-problem-with-deprecation/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/the-rule-of-two/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/principles/what-ownership-is/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/project-lifecycle/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/project-lifecycle/deprecation/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/project-lifecycle/design/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/project-lifecycle/implementation/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/project-lifecycle/operation/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/project-lifecycle/planning/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/project-lifecycle/release/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/project-lifecycle/requirements-gathering/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/standards/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/standards/design-template/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
     <url>
          <loc>https://uberblah.github.io/software-quality/system-archetypes/</loc>
-         <lastmod>2025-11-26</lastmod>
+         <lastmod>2025-11-27</lastmod>
     </url>
 </urlset>

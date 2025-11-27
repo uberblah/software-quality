@@ -6,19 +6,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The best interface is the smallest one that does the job.">
+        <meta name="description" content="The most important tool for managing software complexity is the module.">
       
       
         <meta name="author" content="uberblah">
       
       
-        <link rel="canonical" href="https://uberblah.github.io/software-quality/principles/minimize-interfaces/">
+        <link rel="canonical" href="https://uberblah.github.io/software-quality/principles/modular-design/">
       
       
-        <link rel="prev" href="../do-not-repeat-yourself/">
+        <link rel="prev" href="../separation-of-concerns/">
       
       
-        <link rel="next" href="../clean-abstractions/">
+        <link rel="next" href="../design-incrementally/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>Minimize Interfaces - Software Quality</title>
+        <title>Modular Design - Software Quality</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#minimize-interfaces" class="md-skip">
+        <a href="#modular-design" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Minimize Interfaces
+              Modular Design
             
           </span>
         </div>
@@ -1169,6 +1169,164 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modular Design
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modular Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is it?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guidelines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-information-hiding-clean-abstractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Information Hiding (Clean Abstractions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-minimize-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Minimize Interfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-loose-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Loose Coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-isolate-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Isolate Complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-dependency-injection-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Dependency Injection &amp; Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
@@ -1348,187 +1506,6 @@
     
   
     Do Not Repeat Yourself
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Minimize Interfaces
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Minimize Interfaces
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What is it?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#guideline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Guideline
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../clean-abstractions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Clean Abstractions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../isolate-complexity/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Isolate Complexity
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../loose-coupling/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Loose Coupling
   
 
     
@@ -1978,13 +1955,74 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#guideline" class="md-nav__link">
+  <a href="#guidelines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Guideline
+        Guidelines
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-information-hiding-clean-abstractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Information Hiding (Clean Abstractions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-minimize-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Minimize Interfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-loose-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Loose Coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-isolate-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Isolate Complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-dependency-injection-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Dependency Injection &amp; Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2006,7 +2044,7 @@
 
 
   
-    <a href="https://github.com/uberblah/software-quality/edit/main/docs/principles/minimize-interfaces.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/uberblah/software-quality/edit/main/docs/principles/modular-design.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2014,15 +2052,29 @@
   
 
 
-<h1 id="minimize-interfaces">Minimize Interfaces<a class="headerlink" href="#minimize-interfaces" title="Permanent link">&para;</a></h1>
+<h1 id="modular-design">Modular Design<a class="headerlink" href="#modular-design" title="Permanent link">&para;</a></h1>
 <h2 id="what-is-it">What is it?<a class="headerlink" href="#what-is-it" title="Permanent link">&para;</a></h2>
-<p>Every public method, argument, or exported class is a commitment. It is something you have to maintain, document, and support. It is something others will rely on.</p>
-<h2 id="guideline">Guideline<a class="headerlink" href="#guideline" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Surface Area</strong>: Keep the surface area of your API as small as possible. It is much easier to add a method later than to remove or change one.</li>
-<li><strong>Hyrum's Law</strong>: "With a sufficient number of users of an API, it does not matter what you promise in the contract: all observable behaviors of your system will be depended on by somebody."</li>
-<li><strong>Pit of Success</strong>: Make it hard to use incorrectly by exposing less. If a user <em>can't</em> call the wrong method because it's private, they won't.</li>
-</ul>
+<p>The most important tool for managing software complexity is the <strong>module</strong>: a container of code (class, function, service) with a visible interface and a hidden implementation.</p>
+<p><strong>The Goal</strong>: Create "Deep Modules". A deep module has a simple, purpose-focused interface. It hides exactly enough logic to solve one whole problem.</p>
+<h2 id="guidelines">Guidelines<a class="headerlink" href="#guidelines" title="Permanent link">&para;</a></h2>
+<h3 id="1-information-hiding-clean-abstractions">1. Information Hiding (Clean Abstractions)<a class="headerlink" href="#1-information-hiding-clean-abstractions" title="Permanent link">&para;</a></h3>
+<p>The implementation should be a secret. If changing the implementation requires changing the interface or the consumer, you have failed to hide the information.
+*   <strong>Vocabulary</strong>: Good abstractions create a vocabulary that describes the <em>problem domain</em> (what you are doing), not the <em>solution domain</em> (how the computer does it).
+*   <strong>Leaky Abstractions</strong>: If you need to know how it works internally to use it correctly, it is a failed abstraction.</p>
+<h3 id="2-minimize-interfaces">2. Minimize Interfaces<a class="headerlink" href="#2-minimize-interfaces" title="Permanent link">&para;</a></h3>
+<p>The best interface is the smallest one that does the job. Every exposed method is a commitment and a dependency hook.
+*   <strong>Surface Area</strong>: Keep the surface area of your API as small as possible.
+*   <strong>Pit of Success</strong>: Make it hard to use incorrectly by exposing less.</p>
+<h3 id="3-loose-coupling">3. Loose Coupling<a class="headerlink" href="#3-loose-coupling" title="Permanent link">&para;</a></h3>
+<p>Modules should interact through narrow, stable interfaces. They should know as little as possible about each other.
+*   <strong>Agility</strong>: Loose coupling is the primary enabler of agility. It allows you to change one part of the system without breaking everything else.
+*   <strong>Signs of Tight Coupling</strong>: Shared databases, synchronous call chains, accessing internal fields.</p>
+<h3 id="4-isolate-complexity">4. Isolate Complexity<a class="headerlink" href="#4-isolate-complexity" title="Permanent link">&para;</a></h3>
+<p>If a problem is inherently complex (e.g., tax calculations, cryptography), quarantine it inside a deep module. The rest of the system should interact with the simple interface, not the messy details.</p>
+<h3 id="5-dependency-injection-plugins">5. Dependency Injection &amp; Plugins<a class="headerlink" href="#5-dependency-injection-plugins" title="Permanent link">&para;</a></h3>
+<p>Use Dependency Injection to inject information about different environments or subjects that the module must operate on. The module itself focuses on solving one problem. But often, solving the same problem "everywhere" requires plugins to understand and handle each context.</p>
+<p>It is important to note that injected dependencies must <strong>also</strong> be modules. And it is fair to say that a particularly complex problem may require plugins with plugins with plugins.</p>
+<p>See also <a href="../../design-patterns/plugin-architecture/">Clean Plugin Architecture</a> pattern for a detailed guide on this approach.</p>
 
 
 
