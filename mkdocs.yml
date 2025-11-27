@@ -95,6 +95,7 @@ nav:
           - The Problem with Deprecation: principles/the-problem-with-deprecation.md
       - Designing Solutions:
           - Separate Concerns: principles/separation-of-concerns.md
+          - Modular Design: principles/modular-design.md
           - Design Incrementally: principles/design-incrementally.md
           - The Automation Spectrum: principles/the-automation-spectrum.md
           - Leaf vs Root Problems: principles/leaf-vs-root-problems.md
@@ -102,10 +103,6 @@ nav:
           - If They Can, They Will: principles/if-they-can-they-will.md
           - Boring is Good: principles/boring-is-good.md
           - Do Not Repeat Yourself: principles/do-not-repeat-yourself.md
-          - Minimize Interfaces: principles/minimize-interfaces.md
-          - Clean Abstractions: principles/clean-abstractions.md
-          - Isolate Complexity: principles/isolate-complexity.md
-          - Loose Coupling: principles/loose-coupling.md
           - Minimize Dependencies: principles/minimize-dependencies.md
       - Code Quality:
           - The Rule of Two: principles/the-rule-of-two.md

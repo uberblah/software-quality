@@ -24,10 +24,7 @@ Each page below describes one principle you can use to guide your software engin
 - [If They Can, They Will](if-they-can-they-will.md) - If the system permits an action, assume it will happen.
 - [Boring is Good](boring-is-good.md) - Choose boring technology for critical infrastructure.
 - [Do Not Repeat Yourself](do-not-repeat-yourself.md) - Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.
-- [Minimize Interfaces](minimize-interfaces.md) - The best interface is the smallest one that does the job.
-- [Clean Abstractions](clean-abstractions.md) - Abstractions should simplify the mental model, not just hide code.
-- [Isolate Complexity](isolate-complexity.md) - You often cannot eliminate essential complexity, but you can isolate it.
-- [Loose Coupling](loose-coupling.md) - Loose coupling is the primary enabler of agility.
+- [Modular Design](modular-design.md) - The most important tool for managing software complexity is the module.
 - [Minimize Dependencies](minimize-dependencies.md) - Dependencies are liabilities, not free functionality.
 
 ## Code Quality
